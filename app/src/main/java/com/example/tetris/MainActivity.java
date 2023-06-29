@@ -56,8 +56,9 @@ public class MainActivity extends AppCompatActivity {
             super.onDraw(ca);
             blockdraw bd=new blockdraw();
             blocks bs=new blocks();
+            reset re=new reset();
 
-
+            re.initstartpoi();
             bs.blocks();
             bd.blockdraw(ca);
 
@@ -128,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 }
-                //invalidate();
+                invalidate();
             }
 
 
@@ -269,7 +270,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         class reset{
-
+            public void initstartpoi(){
+                offsetx=xmax/2-blockLenght/2;
+                offsety=0;
+            }
         }
     }
 }
