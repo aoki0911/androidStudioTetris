@@ -40,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
     public static final int blockLenght=4;
     int[][] nowBlock=new int[blockLenght][blockLenght];
 
+    boolean moveflag;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,21 +56,23 @@ public class MainActivity extends AppCompatActivity {
 
         protected void onDraw(Canvas ca) {
             super.onDraw(ca);
-            blockdraw bd=new blockdraw();
+            blockDraw bd=new blockDraw();
             blocks bs=new blocks();
-            reset re=new reset();
+            Reset re=new Reset();
 
             re.initstartpoi();
-            bs.blocks();
-            bd.blockdraw(ca);
+            if(moveflag==false){
+                bs.blocks();
+            }
+            bd.blockDraw(ca);
 
 
 
         }
-        class blockdraw{
+        class blockDraw{
             Paint paint=new Paint();
 
-            public void blockdraw(Canvas ca){
+            public void blockDraw(Canvas ca){
 
 
                 Paint p0=new Paint();
@@ -266,14 +270,19 @@ public class MainActivity extends AppCompatActivity {
                     default:
                         break;
                 };
+                moveflag=true;
             }
         }
 
-        class reset{
+        class Reset{
             public void initstartpoi(){
                 offsetx=xmax/2-blockLenght/2;
                 offsety=0;
             }
+        }
+
+        class BlockDrap{
+
         }
     }
 }
