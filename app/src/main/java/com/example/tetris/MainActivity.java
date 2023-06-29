@@ -265,10 +265,11 @@ public class MainActivity extends AppCompatActivity {
                     default:
                         break;
                 };
-
-
-
             }
+        }
+
+        class reset{
+
         }
     }
 }
