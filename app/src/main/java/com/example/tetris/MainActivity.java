@@ -283,8 +283,8 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        class setTimer{
+        class setTimer {
 
-
+        }
     }
 }
