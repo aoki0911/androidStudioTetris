@@ -60,9 +60,11 @@ public class MainActivity extends AppCompatActivity {
             blocks bs=new blocks();
             Reset re=new Reset();
 
-            re.initstartpoi();
+
+
             if(moveflag==false){
                 bs.blocks();
+                re.initstartpoi();
             }
             bd.blockDraw(ca);
 
@@ -281,8 +283,8 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        class BlockDrap{
+        class setTimer{
 
-        }
+
     }
 }
