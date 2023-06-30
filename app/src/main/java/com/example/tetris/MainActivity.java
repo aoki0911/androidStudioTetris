@@ -40,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
     public static final int blockLenght=4;
     int[][] nowBlock=new int[blockLenght][blockLenght];
 
+    boolean moveflag;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,20 +56,27 @@ public class MainActivity extends AppCompatActivity {
 
         protected void onDraw(Canvas ca) {
             super.onDraw(ca);
-            blockdraw bd=new blockdraw();
+            blockDraw bd=new blockDraw();
             blocks bs=new blocks();
+            Reset re=new Reset();
+            setTimer st=new setTimer();
 
 
-            bs.blocks();
-            bd.blockdraw(ca);
+
+            if(moveflag==false){
+                bs.blocks();
+                re.initstartpoi();
+            }
+            bd.blockDraw(ca);
+            st.blockDrap();
 
 
 
         }
-        class blockdraw{
+        class blockDraw{
             Paint paint=new Paint();
 
-            public void blockdraw(Canvas ca){
+            public void blockDraw(Canvas ca){
 
 
                 Paint p0=new Paint();
@@ -128,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 }
-                //invalidate();
+                invalidate();
             }
 
 
@@ -265,10 +274,29 @@ public class MainActivity extends AppCompatActivity {
                     default:
                         break;
                 };
-
-
-
+                moveflag=true;
             }
+        }
+
+        class Reset{
+            public void initstartpoi(){
+                offsetx=xmax/2-blockLenght/2;
+                offsety=0;
+            }
+        }
+
+        class setTimer {
+            public void blockDrap(){
+                if(moveflag=true){
+                    try{
+                        Thread.sleep(1000);
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                    offsety++;
+                }
+            }
+
         }
     }
 }
