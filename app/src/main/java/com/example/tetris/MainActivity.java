@@ -45,6 +45,11 @@ public class MainActivity extends AppCompatActivity {
     public static final int jBlock = 6;
     public static final int zBlock = 7;
 
+    int motion=Stational;
+    public static final int Stational=0;
+    public static final int Left=1;
+    public static final int Right=2;
+
     int num=0;
 
     public static final int blockLenght=4;
@@ -70,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
             blocks bs=new blocks();
             Reset re=new Reset();
             setTimer st=new setTimer();
+            movement mm=new movement();
 
 
 
@@ -78,8 +84,135 @@ public class MainActivity extends AppCompatActivity {
                 re.initstartpoi();
             }
             bd.blockDraw(ca);
+            mm.move(Left);
             st.blockDrap();
 
+        }
+        class blockDraw{
+            Paint paint=new Paint();
+
+            public void blockDraw(Canvas ca){
+
+
+                Paint p0=new Paint();
+                p0.setColor(Color.BLACK);
+                Paint p1=new Paint();
+                p1.setColor(Color.WHITE);
+                p1.setStyle(Paint.Style.STROKE);
+                ca.drawRect(0,0,fieldW,fieldH,p0);
+                for(int i=0;i<ymax;i++){
+                    for(int j=0;j<xmax;j++){
+                        int px=j*blocksize;
+                        int py=i*blocksize;
+                        switch (field[i][j]){
+                            case tBlock:
+                                paint.setColor(Color.BLUE);
+                                ca.drawRect(px+blocksize,py+blocksize,px,py,paint);
+                                ca.drawRect(px+blocksize,py+blocksize,px,py,p1);
+                                break;
+                            case sBlock:
+                                paint.setColor(Color.GREEN);
+                                ca.drawRect(px+blocksize,py+blocksize,px,py,paint);
+                                ca.drawRect(px+blocksize,py+blocksize,px,py,p1);
+                                break;
+                            case iBlock:
+                                paint.setColor(Color.RED);
+                                ca.drawRect(px+blocksize,py+blocksize,px,py,paint);
+                                ca.drawRect(px+blocksize,py+blocksize,px,py,p1);
+                                break;
+                            case oBlock:
+                                paint.setColor(Color.argb(250,0,255,255));
+                                ca.drawRect(px+blocksize,py+blocksize,px,py,paint);
+                                ca.drawRect(px+blocksize,py+blocksize,px,py,p1);
+                                break;
+                            case lBlock:
+                                paint.setColor(Color.argb(255,255,0,255));
+                                ca.drawRect(px+blocksize,py+blocksize,px,py,paint);
+                                ca.drawRect(px+blocksize,py+blocksize,px,py,p1);
+                                break;
+                            case jBlock:
+                                paint.setColor(Color.YELLOW);
+                                ca.drawRect(px+blocksize,py+blocksize,px,py,paint);
+                                ca.drawRect(px+blocksize,py+blocksize,px,py,p1);
+                                break;
+                            case zBlock:
+                                paint.setColor(Color.argb(255,255,255,0));
+                                ca.drawRect(px+blocksize,py+blocksize,px,py,paint);
+                                ca.drawRect(px+blocksize,py+blocksize,px,py,p1);
+                                break;
+                        }
+                        ca.drawRect(px+blocksize,py+blocksize,px,py,p1);
+                    }
+                }
+                //ブロック出現処置
+                for(int i=0;i<blockLenght;i++) {
+                    for (int j = 0; j < blockLenght; j++) {
+                        if (nowBlock[i][j] == 1) {
+                            drawMoveBlock(+offsetx + j, offsety + i, ca);
+                        }
+                    }
+                }
+                invalidate();
+            }
+
+
+            public void drawMoveBlock(int x,int y,Canvas ca){
+
+                Paint p1=new Paint();
+                p1.setColor(Color.WHITE);
+                p1.setStyle(Paint.Style.STROKE);
+
+                int px=x*blocksize;
+                int py=y*blocksize;
+
+                switch (num){
+                    case tBlock:
+                        paint.setColor(Color.BLUE);
+                        ca.drawRect(px+blocksize,py+blocksize,px,py,paint);
+                        ca.drawRect(px+blocksize,py+blocksize,px,py,p1);
+                        break;
+
+                    case sBlock:
+                        paint.setColor(Color.GREEN);
+                        ca.drawRect(px+blocksize,py+blocksize,px,py,paint);
+                        ca.drawRect(px+blocksize,py+blocksize,px,py,p1);
+                        break;
+
+                    case iBlock:
+                        paint.setColor(Color.RED);
+                        ca.drawRect(px+blocksize,py+blocksize,px,py,paint);
+                        ca.drawRect(px+blocksize,py+blocksize,px,py,p1);
+                        break;
+
+                    case oBlock:
+                        paint.setColor(Color.argb(255,0,255,255));
+                        ca.drawRect(px+blocksize,py+blocksize,px,py,paint);
+                        ca.drawRect(px+blocksize,py+blocksize,px,py,p1);
+                        break;
+
+                    case lBlock:
+                        paint.setColor(Color.argb(255,255,0,255));
+                        ca.drawRect(px+blocksize,py+blocksize,px,py,paint);
+                        ca.drawRect(px+blocksize,py+blocksize,px,py,p1);
+                        break;
+
+                    case jBlock:
+                        paint.setColor(Color.YELLOW);
+                        ca.drawRect(px+blocksize,py+blocksize,px,py,paint);
+                        ca.drawRect(px+blocksize,py+blocksize,px,py,p1);
+                        break;
+
+                    case zBlock:
+                        paint.setColor(Color.argb(255,255,255,0));
+                        ca.drawRect(px+blocksize,py+blocksize,px,py,paint);
+                        ca.drawRect(px+blocksize,py+blocksize,px,py,p1);
+                        break;
+
+                    default:
+                        break;
+                };
+
+            }
         }
     }
 
@@ -88,7 +221,7 @@ public class MainActivity extends AppCompatActivity {
         sm=(SensorManager)getSystemService(SENSOR_SERVICE);
         Sensor accelerometer=sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         sel = new SEL();
-        sm.registerListener(sel, accelerometer,SensorManager.SENSOR_DELAY_NORMAL ); // リスナ登録
+        sm.registerListener(sel, accelerometer,SensorManager.SENSOR_DELAY_NORMAL );
     }
 
     protected void onPause(){
@@ -106,130 +239,7 @@ public class MainActivity extends AppCompatActivity {
         public void onAccuracyChanged(Sensor sensor,int accuracy) {
         }
     }
-    class blockDraw{
-        Paint paint=new Paint();
 
-        public void blockDraw(Canvas ca){
-
-
-            Paint p0=new Paint();
-            p0.setColor(Color.BLACK);
-            Paint p1=new Paint();
-            p1.setColor(Color.WHITE);
-            p1.setStyle(Paint.Style.STROKE);
-            ca.drawRect(0,0,fieldW,fieldH,p0);
-            for(int i=0;i<ymax;i++){
-                for(int j=0;j<xmax;j++){
-                    int px=j*blocksize;
-                    int py=i*blocksize;
-                    switch (field[i][j]){
-                        case tBlock:
-                            paint.setColor(Color.BLUE);
-                            ca.drawRect(px+blocksize,py+blocksize,px,py,paint);
-                            ca.drawRect(px+blocksize,py+blocksize,px,py,p1);
-                            break;
-                        case sBlock:
-                            paint.setColor(Color.GREEN);
-                            ca.drawRect(px+blocksize,py+blocksize,px,py,paint);
-                            ca.drawRect(px+blocksize,py+blocksize,px,py,p1);
-                            break;
-                        case iBlock:
-                            paint.setColor(Color.RED);
-                            ca.drawRect(px+blocksize,py+blocksize,px,py,paint);
-                            ca.drawRect(px+blocksize,py+blocksize,px,py,p1);
-                            break;
-                        case oBlock:
-                            paint.setColor(Color.argb(250,0,255,255));
-                            ca.drawRect(px+blocksize,py+blocksize,px,py,paint);
-                            ca.drawRect(px+blocksize,py+blocksize,px,py,p1);
-                            break;
-                        case lBlock:
-                            paint.setColor(Color.argb(255,255,0,255));
-                            ca.drawRect(px+blocksize,py+blocksize,px,py,paint);
-                            ca.drawRect(px+blocksize,py+blocksize,px,py,p1);
-                            break;
-                        case jBlock:
-                            paint.setColor(Color.YELLOW);
-                            ca.drawRect(px+blocksize,py+blocksize,px,py,paint);
-                            ca.drawRect(px+blocksize,py+blocksize,px,py,p1);
-                            break;
-                        case zBlock:
-                            paint.setColor(Color.argb(255,255,255,0));
-                            ca.drawRect(px+blocksize,py+blocksize,px,py,paint);
-                            ca.drawRect(px+blocksize,py+blocksize,px,py,p1);
-                            break;
-                    }
-                    ca.drawRect(px+blocksize,py+blocksize,px,py,p1);
-                }
-            }
-            //ブロック出現処置
-            for(int i=0;i<blockLenght;i++) {
-                for (int j = 0; j < blockLenght; j++) {
-                    if (nowBlock[i][j] == 1) {
-                        drawMoveBlock(+offsetx + j, offsety + i, ca);
-                    }
-                }
-            }
-        }
-
-
-        public void drawMoveBlock(int x,int y,Canvas ca){
-
-            Paint p1=new Paint();
-            p1.setColor(Color.WHITE);
-            p1.setStyle(Paint.Style.STROKE);
-
-            int px=x*blocksize;
-            int py=y*blocksize;
-
-            switch (num){
-                case tBlock:
-                    paint.setColor(Color.BLUE);
-                    ca.drawRect(px+blocksize,py+blocksize,px,py,paint);
-                    ca.drawRect(px+blocksize,py+blocksize,px,py,p1);
-                    break;
-
-                case sBlock:
-                    paint.setColor(Color.GREEN);
-                    ca.drawRect(px+blocksize,py+blocksize,px,py,paint);
-                    ca.drawRect(px+blocksize,py+blocksize,px,py,p1);
-                    break;
-
-                case iBlock:
-                    paint.setColor(Color.RED);
-                    ca.drawRect(px+blocksize,py+blocksize,px,py,paint);
-                    ca.drawRect(px+blocksize,py+blocksize,px,py,p1);
-                    break;
-
-                case oBlock:
-                    paint.setColor(Color.argb(255,0,255,255));
-                    ca.drawRect(px+blocksize,py+blocksize,px,py,paint);
-                    ca.drawRect(px+blocksize,py+blocksize,px,py,p1);
-                    break;
-
-                case lBlock:
-                    paint.setColor(Color.argb(255,255,0,255));
-                    ca.drawRect(px+blocksize,py+blocksize,px,py,paint);
-                    ca.drawRect(px+blocksize,py+blocksize,px,py,p1);
-                    break;
-
-                case jBlock:
-                    paint.setColor(Color.YELLOW);
-                    ca.drawRect(px+blocksize,py+blocksize,px,py,paint);
-                    ca.drawRect(px+blocksize,py+blocksize,px,py,p1);
-                    break;
-
-                case zBlock:
-                    paint.setColor(Color.argb(255,255,255,0));
-                    ca.drawRect(px+blocksize,py+blocksize,px,py,paint);
-                    ca.drawRect(px+blocksize,py+blocksize,px,py,p1);
-                    break;
-
-                default:
-                    break;
-            };
-        }
-    }
 
 
 
@@ -329,5 +339,25 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
+    }
+    class movement{
+        public void move(int motion){
+            /*if(a_vals[0]<-3){motion=Right;}
+            if(a_vals[0]>3){motion=Left;}
+            if(a_vals[0]<3&&a_vals[0]>-3){motion=Stational;}*/
+
+            switch (motion){
+                case Right:
+                    offsetx++;
+                    break;
+
+                case Left:
+                    offsetx--;
+                    break;
+
+                case Stational:
+                    break;
+            }
+        }
     }
 }
