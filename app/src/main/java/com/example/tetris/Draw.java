@@ -13,6 +13,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.os.Handler;
 import android.view.View;
 
 public class Draw extends View {
@@ -29,8 +30,8 @@ public class Draw extends View {
     static int fieldW=xmax*blocksize;
     static int fieldH=ymax*blocksize;
 
-    static int offsetx=0;
-    static int offsety=0;
+    public static int offsetx=0;
+    public static int offsety=0;
 
     public static final int blockLenght=4;
     int[][] field=new int[15][10];
@@ -54,7 +55,7 @@ public class Draw extends View {
         }
         blockDraw(ca);
         move(motion);
-        blockDrap();
+
 
     }
 
@@ -203,14 +204,5 @@ public class Draw extends View {
         }
     }
 
-    public void blockDrap(){
-        if(moveflag=true){
-            try{
-                Thread.sleep(1000);
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-            offsety++;
-        }
-    }
+
 }

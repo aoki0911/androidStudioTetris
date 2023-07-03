@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     float[] a_vals=new float[3];
 
     static boolean moveflag;
+    public Handler handler=new android.os.Handler();
 
 
     @Override
@@ -45,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
 
         Draw dw=new Draw(this);
         setContentView(dw);
+
+        blockDrop();
     }
 
     protected void onResume() {
@@ -69,5 +72,15 @@ public class MainActivity extends AppCompatActivity {
         }
         public void onAccuracyChanged(Sensor sensor,int accuracy) {
         }
+    }
+    public void blockDrop(){
+        final Runnable r=new Runnable() {
+            @Override
+            public void run() {
+                Draw.offsety++;
+                handler.postDelayed(this,1000);
+            }
+        };
+        handler.post(r);
     }
 }
