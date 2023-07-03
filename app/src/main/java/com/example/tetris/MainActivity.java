@@ -6,6 +6,10 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -15,6 +19,12 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
+
+
+    SensorManager sm;
+    SEL sel;
+
+    float[] a_vals=new float[3];
 
     static final int xmax=10;
     static final int ymax=15;
@@ -34,6 +44,11 @@ public class MainActivity extends AppCompatActivity {
     public static final int lBlock = 5;
     public static final int jBlock = 6;
     public static final int zBlock = 7;
+
+    int motion=Stational;
+    public static final int Stational=0;
+    public static final int Left=1;
+    public static final int Right=2;
 
     int num=0;
 
@@ -60,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
             blocks bs=new blocks();
             Reset re=new Reset();
             setTimer st=new setTimer();
+            movement mm=new movement();
 
 
 
@@ -68,9 +84,8 @@ public class MainActivity extends AppCompatActivity {
                 re.initstartpoi();
             }
             bd.blockDraw(ca);
+            mm.move(Right);
             st.blockDrap();
-
-
 
         }
         class blockDraw{
@@ -130,10 +145,10 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
                 //ブロック出現処置
-                for(int i=0;i<blockLenght;i++){
-                    for(int j=0;j<blockLenght;j++){
-                        if(nowBlock[i][j]==1){
-                            drawMoveBlock(+offsetx+j,offsety+i,ca);
+                for(int i=0;i<blockLenght;i++) {
+                    for (int j = 0; j < blockLenght; j++) {
+                        if (nowBlock[i][j] == 1) {
+                            drawMoveBlock(+offsetx + j, offsety + i, ca);
                         }
                     }
                 }
@@ -196,107 +211,153 @@ public class MainActivity extends AppCompatActivity {
                     default:
                         break;
                 };
+
             }
         }
+    }
 
+    protected void onResume() {
+        super.onResume();
+        sm=(SensorManager)getSystemService(SENSOR_SERVICE);
+        Sensor accelerometer=sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        sel = new SEL();
+        sm.registerListener(sel, accelerometer,SensorManager.SENSOR_DELAY_NORMAL );
+    }
 
+    protected void onPause(){
+        super.onPause();
+        sm.unregisterListener(sel);
+    }
 
+    class SEL implements SensorEventListener {
 
-        class blocks{
-
-            public void blocks(){
-
-                //ブロックランダム抽選
-                num=(int)(Math.random()*7)+1;
-
-                switch (num){
-                    case tBlock:
-                        nowBlock=new int[][]{
-                                {0, 0, 0, 0},
-                                {0, 0, 1, 0},
-                                {0, 1, 1, 1},
-                                {0, 0, 0, 0}
-                        };
-                        break;
-
-                    case sBlock:
-                        nowBlock=new int[][]{
-                                {0, 0, 0, 0},
-                                {0, 1, 1, 0},
-                                {1, 1, 0, 0},
-                                {0, 0, 0, 0}
-                        };
-                        break;
-
-                    case iBlock:
-                        nowBlock=new int[][]{
-                                {0, 1, 0, 0},
-                                {0, 1, 0, 0},
-                                {0, 1, 0, 0},
-                                {0, 1, 0, 0}
-                        };
-                        break;
-
-                    case oBlock:
-                        nowBlock=new int[][]{
-                                {0, 1, 1, 0},
-                                {0, 1, 1, 0},
-                                {0, 0, 0, 0},
-                                {0, 0, 0, 0}
-                        };
-                        break;
-
-                    case lBlock:
-                        nowBlock=new int[][]{
-                                {0, 0, 0, 0},
-                                {0, 1, 1, 1},
-                                {0, 1, 0, 0},
-                                {0, 0, 0, 0}
-                        };
-                        break;
-
-                    case jBlock:
-                        nowBlock=new int[][]{
-                                {0, 1, 0, 0},
-                                {0, 1, 1, 1},
-                                {0, 0, 0, 0},
-                                {0, 0, 0, 0}
-                        };
-                        break;
-                    case zBlock:
-                        nowBlock=new int[][]{
-                                {0, 0, 0, 0},
-                                {0, 1, 1, 0},
-                                {0, 0, 1, 1},
-                                {0, 0, 0, 0}
-                        };
-                        break;
-                    default:
-                        break;
-                };
-                moveflag=true;
+        public void onSensorChanged(SensorEvent event) {
+            if (event.sensor.getType()== Sensor.TYPE_ACCELEROMETER) {
+                a_vals=event.values;
             }
         }
-
-        class Reset{
-            public void initstartpoi(){
-                offsetx=xmax/2-blockLenght/2;
-                offsety=0;
-            }
+        public void onAccuracyChanged(Sensor sensor,int accuracy) {
         }
+    }
 
-        class setTimer {
-            public void blockDrap(){
-                if(moveflag=true){
-                    try{
-                        Thread.sleep(1000);
-                    }catch (Exception e){
-                        e.printStackTrace();
-                    }
-                    offsety++;
+
+
+
+
+    class blocks{
+
+        public void blocks(){
+
+            //ブロックランダム抽選
+            num=(int)(Math.random()*7)+1;
+
+            switch (num){
+                case tBlock:
+                    nowBlock=new int[][]{
+                            {0, 0, 0, 0},
+                            {0, 0, 1, 0},
+                            {0, 1, 1, 1},
+                            {0, 0, 0, 0}
+                    };
+                    break;
+
+                case sBlock:
+                    nowBlock=new int[][]{
+                            {0, 0, 0, 0},
+                            {0, 1, 1, 0},
+                            {1, 1, 0, 0},
+                            {0, 0, 0, 0}
+                    };
+                    break;
+
+                case iBlock:
+                    nowBlock=new int[][]{
+                            {0, 1, 0, 0},
+                            {0, 1, 0, 0},
+                            {0, 1, 0, 0},
+                            {0, 1, 0, 0}
+                    };
+                    break;
+
+                case oBlock:
+                    nowBlock=new int[][]{
+                            {0, 1, 1, 0},
+                            {0, 1, 1, 0},
+                            {0, 0, 0, 0},
+                            {0, 0, 0, 0}
+                    };
+                    break;
+
+                case lBlock:
+                    nowBlock=new int[][]{
+                            {0, 0, 0, 0},
+                            {0, 1, 1, 1},
+                            {0, 1, 0, 0},
+                            {0, 0, 0, 0}
+                    };
+                    break;
+
+                case jBlock:
+                    nowBlock=new int[][]{
+                            {0, 1, 0, 0},
+                            {0, 1, 1, 1},
+                            {0, 0, 0, 0},
+                            {0, 0, 0, 0}
+                    };
+                    break;
+                case zBlock:
+                    nowBlock=new int[][]{
+                            {0, 0, 0, 0},
+                            {0, 1, 1, 0},
+                            {0, 0, 1, 1},
+                            {0, 0, 0, 0}
+                    };
+                    break;
+                default:
+                    break;
+            };
+            moveflag=true;
+        }
+    }
+
+    class Reset{
+        public void initstartpoi(){
+            offsetx=xmax/2-blockLenght/2;
+            offsety=0;
+        }
+    }
+
+    class setTimer {
+        public void blockDrap(){
+            if(moveflag=true){
+                try{
+                    Thread.sleep(1000);
+                }catch (Exception e){
+                    e.printStackTrace();
                 }
+                offsety++;
             }
+        }
 
+    }
+    class movement{
+        public void move(int motion){
+            /*if(a_vals[0]<-3){motion=Right;}
+            if(a_vals[0]>3){motion=Left;}
+            if(a_vals[0]<3&&a_vals[0]>-3){motion=Stational;}*/
+
+            switch (motion){
+                case Right:
+                    offsetx++;
+                    break;
+
+                case Left:
+                    offsetx--;
+                    break;
+
+                case Stational:
+                    break;
+            }
         }
     }
 }
