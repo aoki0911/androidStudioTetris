@@ -186,9 +186,9 @@ public class Draw extends View {
         offsety=0;
     }
     public void move(int motion){
-            /*if(a_vals[0]<-3){motion=Right;}
-            if(a_vals[0]>3){motion=Left;}
-            if(a_vals[0]<3&&a_vals[0]>-3){motion=Stational;}*/
+            if(MainActivity.a_vals[0]<-3){motion=Right;}
+            if(MainActivity.a_vals[0]>3){motion=Left;}
+            if(MainActivity.a_vals[0]<3&&MainActivity.a_vals[0]>-3){motion=Stational;}
 
         switch (motion){
             case Right:
@@ -204,5 +204,20 @@ public class Draw extends View {
         }
     }
 
+    public Boolean canMove(int dx,int dy,int[][] nowBlock){
+        for(int i=0;i<blockLenght;i++){
+            for(int j=0;j<blockLenght;j++){
+                if(nowBlock[i][j]==1){
+                    int nx=offsetx+j+dx;
+                    int ny=offsety+i+dy;
+                    if(ny<0){return false;}
+                    if(nx<0){return false;}
+                    if(nx>=xmax){return false;}
+                    if(ny>=ymax){return false;}
+                    if(field[ny][nx]==1){return false;}
+                }
+            }
+        }
+    }
 
 }

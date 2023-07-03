@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     SensorManager sm;
     SEL sel;
 
-    float[] a_vals=new float[3];
+    public static float[] a_vals=new float[3];
 
     static boolean moveflag;
     public Handler handler=new android.os.Handler();
