@@ -1,7 +1,7 @@
 package com.example.tetris;
 
 
-import static com.example.tetris.MainActivity.blockLenght;
+import static com.example.tetris.Draw.blockLenght;
 
 public class blocks {
     static int num=0;
