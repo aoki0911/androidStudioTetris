@@ -41,7 +41,7 @@ public class Draw extends View {
 
     public Handler handler = new android.os.Handler();
     Paint paint = new Paint();
-    blocks bs=new blocks();
+    blocks bs = new blocks();
 
     public Draw(Context context) {
         super(context);
@@ -308,6 +308,7 @@ public class Draw extends View {
         }
         moveflag = false;
     }
+
     public boolean onTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             if (canMove(0, 0, nowBlock)) {
