@@ -4,7 +4,7 @@ package com.example.tetris;
 import static com.example.tetris.Draw.blockLenght;
 
 public class blocks {
-    static int num=0;
+    static int num = 0;
     public static final int tBlock = 1;
     public static final int sBlock = 2;
     public static final int iBlock = 3;
@@ -13,15 +13,16 @@ public class blocks {
     public static final int jBlock = 6;
     public static final int zBlock = 7;
 
-    static int[][] nowBlock=new int[blockLenght][blockLenght];
-    public void blocks(){
+    static int[][] nowBlock = new int[blockLenght][blockLenght];
+
+    public void blocks() {
 
         //ブロックランダム抽選
-        num=(int)(Math.random()*7)+1;
+        num = (int) (Math.random() * 7) + 1;
 
-        switch (num){
+        switch (num) {
             case tBlock:
-                nowBlock=new int[][]{
+                nowBlock = new int[][]{
                         {0, 0, 0, 0},
                         {0, 0, 1, 0},
                         {0, 1, 1, 1},
@@ -30,7 +31,7 @@ public class blocks {
                 break;
 
             case sBlock:
-                nowBlock=new int[][]{
+                nowBlock = new int[][]{
                         {0, 0, 0, 0},
                         {0, 1, 1, 0},
                         {1, 1, 0, 0},
@@ -39,7 +40,7 @@ public class blocks {
                 break;
 
             case iBlock:
-                nowBlock=new int[][]{
+                nowBlock = new int[][]{
                         {0, 1, 0, 0},
                         {0, 1, 0, 0},
                         {0, 1, 0, 0},
@@ -48,7 +49,7 @@ public class blocks {
                 break;
 
             case oBlock:
-                nowBlock=new int[][]{
+                nowBlock = new int[][]{
                         {0, 1, 1, 0},
                         {0, 1, 1, 0},
                         {0, 0, 0, 0},
@@ -57,7 +58,7 @@ public class blocks {
                 break;
 
             case lBlock:
-                nowBlock=new int[][]{
+                nowBlock = new int[][]{
                         {0, 0, 0, 0},
                         {0, 1, 1, 1},
                         {0, 1, 0, 0},
@@ -66,7 +67,7 @@ public class blocks {
                 break;
 
             case jBlock:
-                nowBlock=new int[][]{
+                nowBlock = new int[][]{
                         {0, 1, 0, 0},
                         {0, 1, 1, 1},
                         {0, 0, 0, 0},
@@ -74,7 +75,7 @@ public class blocks {
                 };
                 break;
             case zBlock:
-                nowBlock=new int[][]{
+                nowBlock = new int[][]{
                         {0, 0, 0, 0},
                         {0, 1, 1, 0},
                         {0, 0, 1, 1},
@@ -83,7 +84,8 @@ public class blocks {
                 break;
             default:
                 break;
-        };
-        MainActivity.moveflag=true;
+        }
+        ;
+        MainActivity.moveflag = true;
     }
 }
