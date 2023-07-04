@@ -311,7 +311,7 @@ public class Draw extends View {
     public boolean onTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             if (canMove(0, 0, nowBlock)) {
-
+                bs.roteta();
             }
         }
         return true;
