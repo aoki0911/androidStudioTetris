@@ -5,6 +5,7 @@ import static com.example.tetris.Draw.xmax;
 import static com.example.tetris.blocks.iBlock;
 import static com.example.tetris.blocks.jBlock;
 import static com.example.tetris.blocks.lBlock;
+import static com.example.tetris.blocks.nowBlock;
 import static com.example.tetris.blocks.oBlock;
 import static com.example.tetris.blocks.sBlock;
 import static com.example.tetris.blocks.tBlock;
@@ -34,10 +35,11 @@ public class MainActivity extends AppCompatActivity {
     SensorManager sm;
     SEL sel;
 
-    float[] a_vals=new float[3];
+    public static float[] a_vals=new float[3];
 
     static boolean moveflag;
-    public Handler handler=new android.os.Handler();
+
+    Draw dw;
 
 
     @Override
@@ -46,8 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
         Draw dw=new Draw(this);
         setContentView(dw);
-
-        blockDrop();
+        dw.blockDropStart();
     }
 
     protected void onResume() {
@@ -73,14 +74,5 @@ public class MainActivity extends AppCompatActivity {
         public void onAccuracyChanged(Sensor sensor,int accuracy) {
         }
     }
-    public void blockDrop(){
-        final Runnable r=new Runnable() {
-            @Override
-            public void run() {
-                Draw.offsety++;
-                handler.postDelayed(this,1000);
-            }
-        };
-        handler.post(r);
-    }
+
 }
