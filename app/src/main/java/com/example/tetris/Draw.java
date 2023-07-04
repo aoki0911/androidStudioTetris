@@ -4,6 +4,8 @@ import static com.example.tetris.MainActivity.moveflag;
 import static com.example.tetris.blocks.iBlock;
 import static com.example.tetris.blocks.jBlock;
 import static com.example.tetris.blocks.lBlock;
+import static com.example.tetris.blocks.nowBlock;
+import static com.example.tetris.blocks.num;
 import static com.example.tetris.blocks.oBlock;
 import static com.example.tetris.blocks.sBlock;
 import static com.example.tetris.blocks.tBlock;
@@ -30,11 +32,13 @@ public class Draw extends View {
     static int fieldW=xmax*blocksize;
     static int fieldH=ymax*blocksize;
 
-    public static int offsetx=0;
-    public static int offsety=0;
+    public  int offsetx=0;
+    public  int offsety=0;
 
     public static final int blockLenght=4;
     int[][] field=new int[15][10];
+
+    public Handler handler=new android.os.Handler();
     Paint paint=new Paint();
 
     public Draw(Context context){
@@ -53,8 +57,13 @@ public class Draw extends View {
             bs.blocks();
             initstartpoi();
         }
+        if(canMove(0,1,nowBlock)==false){
+            blockDropStop();
+            fixtTet();
+        }
         blockDraw(ca);
         move(motion);
+
 
 
     }
@@ -64,10 +73,14 @@ public class Draw extends View {
 
         Paint p0=new Paint();
         p0.setColor(Color.BLACK);
+        Paint p2=new Paint();
+        p2.setColor(Color.RED);
+        p2.setTextSize(200);
         Paint p1=new Paint();
         p1.setColor(Color.WHITE);
         p1.setStyle(Paint.Style.STROKE);
         ca.drawRect(0,0,fieldW,fieldH,p0);
+        ca.drawText(String.valueOf(canMove(0,1,nowBlock)),500,300,p2);
         for(int i=0;i<ymax;i++){
             for(int j=0;j<xmax;j++){
                 int px=j*blocksize;
@@ -133,7 +146,7 @@ public class Draw extends View {
         int px=x*blocksize;
         int py=y*blocksize;
 
-        switch (blocks.num){
+        switch (num){
             case tBlock:
                 paint.setColor(Color.BLUE);
                 ca.drawRect(px+blocksize,py+blocksize,px,py,paint);
@@ -204,10 +217,10 @@ public class Draw extends View {
         }
     }
 
-    public Boolean canMove(int dx,int dy,int[][] nowBlock){
+    public boolean canMove(int dx,int dy,int[][] nowBlock){
         for(int i=0;i<blockLenght;i++){
             for(int j=0;j<blockLenght;j++){
-                if(nowBlock[i][j]==1){
+                if(nowBlock[i][j]!=0){
                     int nx=offsetx+j+dx;
                     int ny=offsety+i+dy;
                     if(ny<0){return false;}
@@ -218,6 +231,75 @@ public class Draw extends View {
                 }
             }
         }
+        return true;
+    }
+
+    public void blockDropStart(){
+        final Runnable r=new Runnable() {
+            @Override
+            public void run() {
+                offsety++;
+                handler.postDelayed(this,1000);
+            }
+        };
+        handler.post(r);
+        /*if(canMove(0,1,nowBlock)==true){
+
+        }else if(canMove(0,1,nowBlock)!=true){
+            handler.removeCallbacks(null);
+            fixtTet();
+        }*/
+    }
+    public void blockDropStop(){handler.removeCallbacks(null);}
+
+
+
+
+
+    public void fixtTet(){
+        for(int i=0;i<blockLenght;i++){
+            for(int j=0;j<blockLenght;j++){
+                switch (num) {
+                    case tBlock:
+                        if(nowBlock[i][j]==1){
+                            field[offsety+i][offsetx+j]=1;
+                        }
+                        break;
+                    case sBlock:
+                        if(nowBlock[i][j]==1){
+                            field[offsety+i][offsetx+j]=2;
+                        }
+                        break;
+                    case iBlock:
+                        if(nowBlock[i][j]==1){
+                            field[offsety+i][offsetx+j]=3;
+                        }
+                        break;
+                    case oBlock:
+                        if(nowBlock[i][j]==1){
+                            field[offsety+i][offsetx+j]=4;
+                        }
+                        break;
+                    case lBlock:
+                        if(nowBlock[i][j]==1){
+                            field[offsety+i][offsetx+j]=5;
+                        }
+                        break;
+                    case jBlock:
+                        if(nowBlock[i][j]==1){
+                            field[offsety+i][offsetx+j]=6;
+                        }
+                        break;
+                    case zBlock:
+                        if(nowBlock[i][j]==1){
+                            field[offsety+i][offsetx+j]=7;
+                        }
+                        break;
+
+                }
+            }
+        }
+        moveflag=false;
     }
 
 }
