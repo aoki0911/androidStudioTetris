@@ -5,7 +5,7 @@ import static com.example.tetris.Draw.blockLenght;
 
 public class blocks {
     static int num = 0;
-    static int rotetanum = 0;
+    private static int rotetanum = 0;
     public static final int tBlock = 1;
     public static final int sBlock = 2;
     public static final int iBlock = 3;
@@ -88,6 +88,7 @@ public class blocks {
         }
         ;
         MainActivity.moveflag = true;
+        rotetanum = 0;
     }
 
     public void roteta() {
@@ -284,8 +285,10 @@ public class blocks {
                         };
                         rotetanum = 0;
                         break;
+                    default:
+                        break;
                 }
                 break;
-            }
         }
     }
+}

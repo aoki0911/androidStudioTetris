@@ -16,6 +16,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Handler;
+import android.view.MotionEvent;
 import android.view.View;
 
 public class Draw extends View {
@@ -40,6 +41,7 @@ public class Draw extends View {
 
     public Handler handler = new android.os.Handler();
     Paint paint = new Paint();
+    blocks bs=new blocks();
 
     public Draw(Context context) {
         super(context);
@@ -55,8 +57,7 @@ public class Draw extends View {
             initstartpoi();
         }
         if (canMove(0, 1, nowBlock) == false) {
-            //blockDropStop();
-            fixtTet();
+            blockFixt();
         }
         blockDraw(ca);
         move(motion);
@@ -263,12 +264,7 @@ public class Draw extends View {
         handler.post(r);
     }
 
-    public void blockDropStop() {
-        handler.removeCallbacks(null);
-    }
-
-
-    public void fixtTet() {
+    public void blockFixt() {
         for (int i = 0; i < blockLenght; i++) {
             for (int j = 0; j < blockLenght; j++) {
                 switch (num) {
@@ -312,5 +308,12 @@ public class Draw extends View {
         }
         moveflag = false;
     }
+    public boolean onTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            if (canMove(0, 0, nowBlock)) {
 
+            }
+        }
+        return true;
+    }
 }

@@ -5,6 +5,8 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.view.MotionEvent;
+import static com.example.tetris.blocks.nowBlock;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -19,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     static boolean moveflag;
 
     Draw dw;
+    blocks bs=new blocks();
 
 
     @Override
@@ -54,5 +57,4 @@ public class MainActivity extends AppCompatActivity {
         public void onAccuracyChanged(Sensor sensor, int accuracy) {
         }
     }
-
 }
