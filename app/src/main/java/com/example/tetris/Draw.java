@@ -58,7 +58,7 @@ public class Draw extends View {
             initstartpoi();
         }
         if(canMove(0,1,nowBlock)==false){
-            blockDropStop();
+            //blockDropStop();
             fixtTet();
         }
         blockDraw(ca);
@@ -205,11 +205,12 @@ public class Draw extends View {
 
         switch (motion){
             case Right:
-                offsetx++;
+                if(canMove(1,0,nowBlock)){offsetx++;}
                 break;
 
             case Left:
-                offsetx--;
+                if(canMove(-1,0,nowBlock)){offsetx--;}
+
                 break;
 
             case Stational:
@@ -227,7 +228,7 @@ public class Draw extends View {
                     if(nx<0){return false;}
                     if(nx>=xmax){return false;}
                     if(ny>=ymax){return false;}
-                    if(field[ny][nx]==1){return false;}
+                    if(field[ny][nx]!=0){return false;}
                 }
             }
         }
