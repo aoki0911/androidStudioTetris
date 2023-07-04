@@ -63,9 +63,6 @@ public class Draw extends View {
         }
         blockDraw(ca);
         move(motion);
-
-
-
     }
 
     public void blockDraw(Canvas ca){
@@ -73,14 +70,14 @@ public class Draw extends View {
 
         Paint p0=new Paint();
         p0.setColor(Color.BLACK);
-        Paint p2=new Paint();
+        /*Paint p2=new Paint();
         p2.setColor(Color.RED);
-        p2.setTextSize(200);
+        p2.setTextSize(200);*/
         Paint p1=new Paint();
         p1.setColor(Color.WHITE);
         p1.setStyle(Paint.Style.STROKE);
         ca.drawRect(0,0,fieldW,fieldH,p0);
-        ca.drawText(String.valueOf(canMove(0,1,nowBlock)),500,300,p2);
+        //ca.drawText(String.valueOf(canMove(0,1,nowBlock)),500,300,p2);
         for(int i=0;i<ymax;i++){
             for(int j=0;j<xmax;j++){
                 int px=j*blocksize;
