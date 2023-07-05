@@ -14,9 +14,14 @@ import static com.example.tetris.blocks.zBlock;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Insets;
 import android.graphics.Paint;
 import android.os.Handler;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowInsets;
+import android.view.WindowMetrics;
+import android.widget.LinearLayout;
 
 public class Draw extends View {
 
@@ -27,8 +32,7 @@ public class Draw extends View {
 
     static final int xmax = 10;
     static final int ymax = 15;
-    static final int blocksize = 60;
-
+    static final int blocksize=60;
     static int fieldW = xmax * blocksize;
     static int fieldH = ymax * blocksize;
 
@@ -40,6 +44,7 @@ public class Draw extends View {
 
     public Handler handler = new android.os.Handler();
     Paint paint = new Paint();
+    blocks bs = new blocks();
 
     public Draw(Context context) {
         super(context);
@@ -55,26 +60,24 @@ public class Draw extends View {
             initstartpoi();
         }
         if (canMove(0, 1, nowBlock) == false) {
-            //blockDropStop();
-            fixtTet();
+            blockFixt();
         }
         blockDraw(ca);
         move(motion);
     }
-
     public void blockDraw(Canvas ca) {
 
 
         Paint p0 = new Paint();
         p0.setColor(Color.BLACK);
         /*Paint p2=new Paint();
-        p2.setColor(Color.RED);
+        p2.setColor(Color.argb(255, 255, 255, 0));
         p2.setTextSize(200);*/
         Paint p1 = new Paint();
         p1.setColor(Color.WHITE);
         p1.setStyle(Paint.Style.STROKE);
         ca.drawRect(0, 0, fieldW, fieldH, p0);
-        //ca.drawText(String.valueOf(canMove(0,1,nowBlock)),500,300,p2);
+        //ca.drawText(String.valueOf(canMove(0,1,nowBlock)),300,300,p2);
         for (int i = 0; i < ymax; i++) {
             for (int j = 0; j < xmax; j++) {
                 int px = j * blocksize;
@@ -111,7 +114,7 @@ public class Draw extends View {
                         ca.drawRect(px + blocksize, py + blocksize, px, py, p1);
                         break;
                     case zBlock:
-                        paint.setColor(Color.argb(255, 255, 255, 0));
+                        paint.setColor(Color.argb(255, 255, 165, 0));
                         ca.drawRect(px + blocksize, py + blocksize, px, py, paint);
                         ca.drawRect(px + blocksize, py + blocksize, px, py, p1);
                         break;
@@ -178,7 +181,7 @@ public class Draw extends View {
                 break;
 
             case zBlock:
-                paint.setColor(Color.argb(255, 255, 255, 0));
+                paint.setColor(Color.argb(255, 255, 165, 0));
                 ca.drawRect(px + blocksize, py + blocksize, px, py, paint);
                 ca.drawRect(px + blocksize, py + blocksize, px, py, p1);
                 break;
@@ -263,12 +266,7 @@ public class Draw extends View {
         handler.post(r);
     }
 
-    public void blockDropStop() {
-        handler.removeCallbacks(null);
-    }
-
-
-    public void fixtTet() {
+    public void blockFixt() {
         for (int i = 0; i < blockLenght; i++) {
             for (int j = 0; j < blockLenght; j++) {
                 switch (num) {
@@ -313,4 +311,12 @@ public class Draw extends View {
         moveflag = false;
     }
 
+    public boolean onTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            if (canMove(0, 0, nowBlock)) {
+                bs.roteta();
+            }
+        }
+        return true;
+    }
 }

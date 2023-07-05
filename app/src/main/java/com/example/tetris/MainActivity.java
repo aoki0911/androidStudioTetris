@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     static boolean moveflag;
 
     Draw dw;
+    blocks bs = new blocks();
 
 
     @Override
@@ -54,5 +55,4 @@ public class MainActivity extends AppCompatActivity {
         public void onAccuracyChanged(Sensor sensor, int accuracy) {
         }
     }
-
 }
