@@ -5,6 +5,9 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,18 +20,20 @@ public class MainActivity extends AppCompatActivity {
     public static float[] a_vals = new float[3];
 
     static boolean moveflag;
+    Handler handler=new Handler();
 
     Draw dw;
-    blocks bs = new blocks();
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Draw dw = new Draw(this);
-        setContentView(dw);
-        dw.blockDropStart();
+        dw=this.findViewById(R.id.Draw);
+
+        //Draw dw = new Draw(this);
+        setContentView(R.layout.activity_main);
+        blockDropStart();
+
+
     }
 
     protected void onResume() {
@@ -54,5 +59,15 @@ public class MainActivity extends AppCompatActivity {
 
         public void onAccuracyChanged(Sensor sensor, int accuracy) {
         }
+    }
+    public void blockDropStart() {
+        final Runnable r = new Runnable() {
+            @Override
+            public void run() {
+                dw.offsety++;
+                handler.postDelayed(this, 1000);
+            }
+        };
+        handler.post(r);
     }
 }
