@@ -6,6 +6,8 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     static boolean moveflag;
     Handler handler = new Handler();
 
+
     Draw dw;
 
     @Override
@@ -28,12 +31,32 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         dw = this.findViewById(R.id.Draw);
+        //dw.move(dw.Stational);
 
         //Draw dw = new Draw(this);
         setContentView(R.layout.activity_main);
         timerset();
 
+        dw = this.findViewById(R.id.Draw);
+        dw.showfield(Draw.Stational);
 
+        Button leftButton = findViewById(R.id.leftButton);
+        setButtonFunction(leftButton, Draw.Left);
+
+        Button rightButton = findViewById(R.id.righttButton);
+        setButtonFunction(rightButton, Draw.Right);
+
+        Button rotetaButton = findViewById(R.id.rotateButton);
+        setButtonFunction(rotetaButton, Draw.rotate);
+    }
+
+    private void setButtonFunction(Button button, final int motion) {
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dw.showfield(motion);
+            }
+        });
     }
 
     protected void onResume() {
@@ -65,16 +88,16 @@ public class MainActivity extends AppCompatActivity {
         final Runnable r = new Runnable() {
             @Override
             public void run() {
-                dw.offsety++;
+                dw.showfield(Draw.Down);
                 handler.postDelayed(this, 1000);
 
                 TextView scoreText = findViewById(R.id.scoreText);
                 scoreText.setText(String.valueOf(dw.score));
 
-                TextView gameOverText=findViewById(R.id.gameOverText);
-                if(dw.gameOverFlag==true){
+                TextView gameOverText = findViewById(R.id.gameOverText);
+                if (dw.gameOverFlag == true) {
                     gameOverText.setText(R.string.gameOver);
-                }else{
+                } else {
                     gameOverText.setText("");
                 }
 
