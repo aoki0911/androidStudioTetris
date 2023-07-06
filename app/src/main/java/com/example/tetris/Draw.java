@@ -40,7 +40,7 @@ public class Draw extends View {
     public static final int blockLenght = 4;
     int[][] field = new int[15][10];
     public static int score = 0;
-    public static boolean gameOverFlag =true;
+    public static boolean gameOverFlag =false;
 
 
     Paint paint = new Paint();
@@ -65,7 +65,7 @@ public class Draw extends View {
 
         if (moveflag == false) {
             initstartpoi();
-            bs.blocks();
+            bs.setNowBlock();
         }
         if (gameOverFlag != true) {
             switch (motion) {
@@ -257,7 +257,7 @@ public class Draw extends View {
 
     public void initstartpoi() {
         offsetx = xmax / 2 - blockLenght / 2;
-        offsety = 0;
+        offsety = -1;
     }
 
     public void move(int motion) {
