@@ -39,7 +39,7 @@ public class Draw extends View {
 
     public static final int blockLenght = 4;
     int[][] field = new int[15][10];
-    public static int score = 10;
+    public static int score = 0;
     public static boolean gameOverFlag = false;
 
 
@@ -89,6 +89,9 @@ public class Draw extends View {
                     if (canMove(0, 1, nowBlock)) {
                         offsety++;
                     } else {
+                        if(!canMove(0,0,nowBlock)){
+                            gameOverFlag=true;
+                        }
                         blockFixt();
                         checkfield();
                     }
