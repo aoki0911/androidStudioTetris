@@ -59,6 +59,15 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void setresetButton(Button button) {
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dw.reset();
+            }
+        });
+    }
+
     protected void onResume() {
         super.onResume();
         sm = (SensorManager) getSystemService(SENSOR_SERVICE);
@@ -95,11 +104,19 @@ public class MainActivity extends AppCompatActivity {
                 scoreText.setText(String.valueOf(dw.score));
 
                 TextView gameOverText = findViewById(R.id.gameOverText);
+                Button resetButton=findViewById(R.id.resetButton);
                 if (dw.gameOverFlag == true) {
                     gameOverText.setText(R.string.gameOver);
+                    resetButton.setVisibility(View.VISIBLE);
+                    resetButton.setText("Reset");
+                    setresetButton(resetButton);
                 } else {
                     gameOverText.setText("");
+                    resetButton.setVisibility(View.INVISIBLE);
                 }
+
+
+
 
             }
         };

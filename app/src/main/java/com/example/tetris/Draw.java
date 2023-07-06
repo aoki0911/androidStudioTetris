@@ -39,8 +39,8 @@ public class Draw extends View {
 
     public static final int blockLenght = 4;
     int[][] field = new int[15][10];
-    public static int score = 10;
-    public static boolean gameOverFlag = false;
+    public static int score = 0;
+    public static boolean gameOverFlag =true;
 
 
     Paint paint = new Paint();
@@ -89,6 +89,9 @@ public class Draw extends View {
                     if (canMove(0, 1, nowBlock)) {
                         offsety++;
                     } else {
+                        if(!canMove(0,0,nowBlock)){
+                            gameOverFlag=true;
+                        }
                         blockFixt();
                         checkfield();
                     }
@@ -106,6 +109,22 @@ public class Draw extends View {
         invalidate();
         this.motion = motion;
     }
+
+    public void reset(){
+        gameOverFlag=false;
+        score=0;
+        motion=Stational;
+        resetfield();
+    }
+
+    public void resetfield(){
+        for(int i=0;i<ymax;i++){
+            for(int j=0;j<xmax;j++){
+                field[i][j]=0;
+            }
+        }
+    }
+
 
 
     public void blockDraw(Canvas ca) {
