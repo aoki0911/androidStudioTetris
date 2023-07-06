@@ -21,11 +21,12 @@ import android.view.View;
 
 public class Draw extends View {
 
-    int motion = Stational;
+    private int motion = Stational;
     public static final int Stational = 0;
     public static final int Left = 1;
     public static final int Right = 2;
     public static final int rotate = 3;
+    public static final int Down = 4;
 
     static final int xmax = 10;
     static final int ymax = 15;
@@ -63,15 +64,49 @@ public class Draw extends View {
 
 
         if (moveflag == false) {
-            bs.blocks();
             initstartpoi();
+            bs.blocks();
         }
-        if (canMove(0, 1, nowBlock) == false) {
-            blockFixt();
+        if (gameOverFlag != true) {
+            switch (motion) {
+                case Right:
+                    if (canMove(1, 0, nowBlock)) {
+                        offsetx = offsetx + 1;
+                    }
+                    break;
+
+                case Left:
+                    if (canMove(-1, 0, nowBlock)) {
+                        offsetx = offsetx - 1;
+                    }
+
+                    break;
+                case rotate:
+                    if (canMove(0, 0, nowBlock)) {
+                        bs.roteta();
+                    }
+                case Down:
+                    if (canMove(0, 1, nowBlock)) {
+                        offsety++;
+                    } else {
+                        blockFixt();
+                        checkfield();
+                    }
+
+                default:
+                    break;
+            }
+            blockDraw(ca);
         }
-        blockDraw(ca);
-        move(motion);
+
+        //move(motion);
     }
+
+    public void showfield(int motion) {
+        invalidate();
+        this.motion = motion;
+    }
+
 
     public void blockDraw(Canvas ca) {
 
@@ -138,7 +173,7 @@ public class Draw extends View {
                 }
             }
         }
-        invalidate();
+        //invalidate();
     }
 
 
@@ -207,38 +242,19 @@ public class Draw extends View {
     }
 
     public void move(int motion) {
-        if (MainActivity.a_vals[0] < -3) {
-            motion = Right;
-        }
-        if (MainActivity.a_vals[0] > 3) {
-            motion = Left;
-        }
-        if (MainActivity.a_vals[0] < 3 && MainActivity.a_vals[0] > -3) {
-            motion = Stational;
-        }
+            /*if (MainActivity.a_vals[0] < -3) {
+                motion = Right;
+            }
+            if (MainActivity.a_vals[0] > 3) {
+                motion = Left;
+            }
+            if (MainActivity.a_vals[0] < 3 && MainActivity.a_vals[0] > -3) {
+                motion = Stational;
+            }*/
+        //this.motion=motion;
 
-        switch (motion) {
-            case Right:
-                if (canMove(1, 0, nowBlock)) {
-                    offsetx++;
-                }
-                break;
-
-            case Left:
-                if (canMove(-1, 0, nowBlock)) {
-                    offsetx--;
-                }
-
-                break;
-            case rotate:
-                if (canMove(0, 0, nowBlock)) {
-                    bs.roteta();
-                }
-
-            default:
-                break;
-        }
     }
+
 
     public boolean canMove(int dx, int dy, int[][] nowBlock) {
         for (int i = 0; i < blockLenght; i++) {
@@ -338,15 +354,14 @@ public class Draw extends View {
     }
 
     public void checkfield() {
-        for (int j = 0; j < ymax; j++) {
-            for (int i = 0; i < xmax; i++) {
+        for (int i = 0; i < ymax; i++) {
+            for (int j = 0; j < xmax; j++) {
                 if (field[i][j] == 0) {
                     break;
-                } else if (i == xmax - 1 && field[i][j] > 0) {
-                    clearLine(j);
+                } else if (j == xmax - 1 && field[i][j] > 0) {
+                    clearLine(i);
                 }
             }
         }
     }
-
 }
