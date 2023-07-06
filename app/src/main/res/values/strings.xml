@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">TETRIS</string>
+    <string name="gameOver">GAME OVER</string>
 </resources>

@@ -14,14 +14,10 @@ import static com.example.tetris.blocks.zBlock;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Insets;
 import android.graphics.Paint;
-import android.os.Handler;
+import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowInsets;
-import android.view.WindowMetrics;
-import android.widget.LinearLayout;
 
 public class Draw extends View {
 
@@ -29,25 +25,36 @@ public class Draw extends View {
     public static final int Stational = 0;
     public static final int Left = 1;
     public static final int Right = 2;
+    public static final int rotate = 3;
 
     static final int xmax = 10;
     static final int ymax = 15;
-    static final int blocksize=60;
+    static final int blocksize = 60;
     static int fieldW = xmax * blocksize;
     static int fieldH = ymax * blocksize;
 
-    public int offsetx = 0;
-    public int offsety = 0;
+    public static int offsetx = 0;
+    public static int offsety = 0;
 
     public static final int blockLenght = 4;
     int[][] field = new int[15][10];
+    public static int score = 10;
+    public static boolean gameOverFlag=false;
 
-    public Handler handler = new android.os.Handler();
+
     Paint paint = new Paint();
     blocks bs = new blocks();
 
     public Draw(Context context) {
         super(context);
+    }
+
+    public Draw(Context context, AttributeSet attrs) {
+        super(context, attrs);
+    }
+
+    public Draw(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
     }
 
     protected void onDraw(Canvas ca) {
@@ -65,6 +72,7 @@ public class Draw extends View {
         blockDraw(ca);
         move(motion);
     }
+
     public void blockDraw(Canvas ca) {
 
 
@@ -222,8 +230,12 @@ public class Draw extends View {
                 }
 
                 break;
+            case rotate:
+                if (canMove(0, 0, nowBlock)) {
+                    bs.roteta();
+                }
 
-            case Stational:
+            default:
                 break;
         }
     }
@@ -255,16 +267,6 @@ public class Draw extends View {
         return true;
     }
 
-    public void blockDropStart() {
-        final Runnable r = new Runnable() {
-            @Override
-            public void run() {
-                offsety++;
-                handler.postDelayed(this, 1000);
-            }
-        };
-        handler.post(r);
-    }
 
     public void blockFixt() {
         for (int i = 0; i < blockLenght; i++) {
