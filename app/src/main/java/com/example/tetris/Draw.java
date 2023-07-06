@@ -336,4 +336,17 @@ public class Draw extends View {
         }
         score += 100;
     }
+
+    public void checkfield() {
+        for (int j = 0; j < ymax; j++) {
+            for (int i = 0; i < xmax; i++) {
+                if (field[i][j] == 0) {
+                    break;
+                } else if (i == xmax - 1 && field[i][j] > 0) {
+                    clearLine(j);
+                }
+            }
+        }
+    }
+
 }
