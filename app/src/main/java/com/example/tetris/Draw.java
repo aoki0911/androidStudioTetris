@@ -40,7 +40,7 @@ public class Draw extends View {
     public static final int blockLenght = 4;
     int[][] field = new int[15][10];
     public static int score = 0;
-    public static boolean gameOverFlag = false;
+    public static boolean gameOverFlag =true;
 
 
     Paint paint = new Paint();
@@ -109,6 +109,14 @@ public class Draw extends View {
         invalidate();
         this.motion = motion;
     }
+
+    public void reset(){
+        gameOverFlag=false;
+        score=0;
+        motion=Stational;
+    }
+
+    public
 
 
     public void blockDraw(Canvas ca) {
