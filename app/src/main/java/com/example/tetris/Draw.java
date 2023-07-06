@@ -114,9 +114,17 @@ public class Draw extends View {
         gameOverFlag=false;
         score=0;
         motion=Stational;
+        resetfield();
     }
 
-    public
+    public void resetfield(){
+        for(int i=0;i<ymax;i++){
+            for(int j=0;j<xmax;j++){
+                field[i][j]=0;
+            }
+        }
+    }
+
 
 
     public void blockDraw(Canvas ca) {
