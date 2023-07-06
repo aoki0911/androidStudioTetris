@@ -15,7 +15,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.os.Handler;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -26,7 +25,7 @@ public class Draw extends View {
     public static final int Stational = 0;
     public static final int Left = 1;
     public static final int Right = 2;
-    public static final int rotate=3;
+    public static final int rotate = 3;
 
     static final int xmax = 10;
     static final int ymax = 15;
@@ -39,6 +38,8 @@ public class Draw extends View {
 
     public static final int blockLenght = 4;
     int[][] field = new int[15][10];
+    public static int score = 10;
+    public static boolean gameOverFlag=false;
 
 
     Paint paint = new Paint();
@@ -230,7 +231,7 @@ public class Draw extends View {
 
                 break;
             case rotate:
-                if(canMove(0,0,nowBlock)){
+                if (canMove(0, 0, nowBlock)) {
                     bs.roteta();
                 }
 
@@ -265,7 +266,6 @@ public class Draw extends View {
         }
         return true;
     }
-
 
 
     public void blockFixt() {

@@ -5,6 +5,7 @@ import static com.example.tetris.Draw.blockLenght;
 
 public class blocks {
     static int num = 0;
+    int postnum = num;
     private static int rotetanum = 0;
     public static final int tBlock = 1;
     public static final int sBlock = 2;
@@ -15,11 +16,28 @@ public class blocks {
     public static final int zBlock = 7;
 
     static int[][] nowBlock = new int[blockLenght][blockLenght];
+    int count = 0;
 
     public void blocks() {
-
-        //ブロックランダム抽選
-        num = (int) (Math.random() * 7) + 1;
+        int prenum = 0;
+        if (count == 0) {
+            num = (int) (Math.random() * 7) + 1;
+            count++;
+        } else {
+            //ブロックランダム抽選
+            prenum = (int) (Math.random() * 7) + 1;
+            if (postnum == prenum) {
+                while (true) {
+                    prenum = (int) (Math.random() * 7) + 1;
+                    if (postnum != prenum) {
+                        num = prenum;
+                        break;
+                    }
+                }
+            } else {
+                num = prenum;
+            }
+        }
 
         switch (num) {
             case tBlock:
