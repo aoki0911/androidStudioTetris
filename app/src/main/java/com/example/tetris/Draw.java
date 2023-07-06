@@ -39,7 +39,7 @@ public class Draw extends View {
     public static final int blockLenght = 4;
     int[][] field = new int[15][10];
     public static int score = 10;
-    public static boolean gameOverFlag=false;
+    public static boolean gameOverFlag = false;
 
 
     Paint paint = new Paint();
@@ -320,5 +320,20 @@ public class Draw extends View {
             }
         }
         return true;
+    }
+
+    public void clearLine(int row) {
+        for (int j = 0; j < xmax; j++) {
+            field[row][j] = 0;
+        }
+        for (int i = row; i > 0; i--) {
+            for (int j = 0; j < xmax; j++) {
+                field[i][j] = field[i - 1][j];
+            }
+        }
+        for (int j = 0; j < xmax; j++) {
+            field[0][j] = 0;
+        }
+        score += 100;
     }
 }
