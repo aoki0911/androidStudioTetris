@@ -4,11 +4,14 @@ package com.example.tetris;
 import static com.example.tetris.Draw.blockLenght;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class blocks {
     static int num = 0;
-    int postnum = num;
+    static int num2=0;
+
     private static int rotetanum = 0;
     public static final int tBlock = 1;
     public static final int sBlock = 2;
@@ -20,12 +23,25 @@ public class blocks {
 
     static int[][] block = new int[blockLenght][blockLenght];
     static int[][] nowBlock=new int[blockLenght][blockLenght];
-    List<Integer> nextBlock=new ArrayList<>();
+    static int[][] nextBlock=new int[blockLenght][blockLenght];
+    List<Integer> blockList= Arrays.asList(1,2,3,4,5,6,7);
+    List<Integer> blockRandom=new ArrayList<>(blockList);
 
 
-    public void blocks() {
-        num = (int) (Math.random() * 7) + 1;
-        switch (num) {
+
+    public void randomPick(){
+        if(blockRandom.size()!=0){
+            Collections.shuffle(blockRandom);
+        }else{
+            blockRandom.addAll(blockList);
+        }
+    }
+    public void blocks(int number) {
+        if(number==0){
+            num=blockRandom.get(number);
+        }
+
+        switch (number) {
             case tBlock:
                 block = new int[][]{
                         {0, 0, 0, 0},
@@ -94,14 +110,23 @@ public class blocks {
     }
 
     public void setNowBlock(){
-        blocks();
+        blocks(0);
         for(int i=0;i<blockLenght;i++){
             for(int j=0;j<blockLenght;j++){
                 nowBlock[i][j]=block[i][j];
             }
         }
-        MainActivity.moveflag = true;
+        Draw.moveflag = true;
         rotetanum = 0;
+    }
+
+    public void setNextBlock(){
+        blocks(1);
+        for(int i=0;i<blockLenght;i++){
+            for(int j=0;j<blockLenght;j++){
+                nextBlock[i][j]=block[i][j];
+            }
+        }
     }
 
     public void roteta() {

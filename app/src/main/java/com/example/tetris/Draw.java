@@ -1,6 +1,5 @@
 package com.example.tetris;
 
-import static com.example.tetris.MainActivity.moveflag;
 import static com.example.tetris.blocks.iBlock;
 import static com.example.tetris.blocks.jBlock;
 import static com.example.tetris.blocks.lBlock;
@@ -41,6 +40,7 @@ public class Draw extends View {
     int[][] field = new int[15][10];
     public static int score = 0;
     public static boolean gameOverFlag =false;
+    static boolean moveflag;
 
 
     Paint paint = new Paint();
@@ -61,6 +61,7 @@ public class Draw extends View {
     protected void onDraw(Canvas ca) {
         super.onDraw(ca);
         blocks bs = new blocks();
+        bs.randomPick();
 
 
         if (moveflag == false) {
@@ -94,6 +95,7 @@ public class Draw extends View {
                         }
                         blockFixt();
                         checkfield();
+                        bs.blockRandom.remove(0);
                     }
 
                 default:
@@ -101,8 +103,6 @@ public class Draw extends View {
             }
             blockDraw(ca);
         }
-
-        //move(motion);
     }
 
     public void showfield(int motion) {
@@ -131,15 +131,11 @@ public class Draw extends View {
 
 
         Paint p0 = new Paint();
-        p0.setColor(Color.BLACK);
-        /*Paint p2=new Paint();
-        p2.setColor(Color.argb(255, 255, 255, 0));
-        p2.setTextSize(200);*/
         Paint p1 = new Paint();
+        p0.setColor(Color.BLACK);
         p1.setColor(Color.WHITE);
         p1.setStyle(Paint.Style.STROKE);
         ca.drawRect(0, 0, fieldW, fieldH, p0);
-        //ca.drawText(String.valueOf(canMove(0,1,nowBlock)),300,300,p2);
         for (int i = 0; i < ymax; i++) {
             for (int j = 0; j < xmax; j++) {
                 int px = j * blocksize;
@@ -192,7 +188,6 @@ public class Draw extends View {
                 }
             }
         }
-        //invalidate();
     }
 
 
@@ -255,26 +250,10 @@ public class Draw extends View {
 
     }
 
-    public void initstartpoi() {
+    public static void initstartpoi() {
         offsetx = xmax / 2 - blockLenght / 2;
-        offsety = -1;
+        offsety = -2;
     }
-
-    public void move(int motion) {
-            /*if (MainActivity.a_vals[0] < -3) {
-                motion = Right;
-            }
-            if (MainActivity.a_vals[0] > 3) {
-                motion = Left;
-            }
-            if (MainActivity.a_vals[0] < 3 && MainActivity.a_vals[0] > -3) {
-                motion = Stational;
-            }*/
-        //this.motion=motion;
-
-    }
-
-
     public boolean canMove(int dx, int dy, int[][] nowBlock) {
         for (int i = 0; i < blockLenght; i++) {
             for (int j = 0; j < blockLenght; j++) {

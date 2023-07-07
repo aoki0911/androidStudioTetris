@@ -11,7 +11,15 @@
         android:id="@+id/Draw"
         android:layout_width="300dp"
         android:layout_height="460dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.example.tetris.nextDraw
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="300dp"
+        android:layout_marginTop="80dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

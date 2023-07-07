@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static float[] a_vals = new float[3];
 
-    static boolean moveflag;
+
     Handler handler = new Handler();
 
 
