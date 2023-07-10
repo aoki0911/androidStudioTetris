@@ -7,10 +7,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 public class blocks {
     static int num = 0;
-    static int num2=0;
+    static int nextNum=0;
 
     private static int rotetanum = 0;
     public static final int tBlock = 1;
@@ -24,24 +25,31 @@ public class blocks {
     static int[][] block = new int[blockLenght][blockLenght];
     static int[][] nowBlock=new int[blockLenght][blockLenght];
     static int[][] nextBlock=new int[blockLenght][blockLenght];
-    List<Integer> blockList= Arrays.asList(1,2,3,4,5,6,7);
-    List<Integer> blockRandom=new ArrayList<>(blockList);
+    static List<Integer> blockNumbers = Arrays.asList(1,2,3,4,5,6,7);
+    static List<Integer> randomNumbers = new ArrayList<>();
 
 
 
-    public void randomPick(){
-        if(blockRandom.size()!=0){
-            Collections.shuffle(blockRandom);
-        }else{
-            blockRandom.addAll(blockList);
+    public static void randomNumber() {
+        if(randomNumbers.size()<6){
+            for(int i=0;i<6;i++){
+                randomNumbers.add(blockNumbers.get(i));
+            }
+            Collections.shuffle(randomNumbers);
         }
     }
     public void blocks(int number) {
+        int tenmuber=0;
         if(number==0){
-            num=blockRandom.get(number);
+            tenmuber=randomNumbers.get(0);
+            num=tenmuber;
+        }else{
+            tenmuber=randomNumbers.get(1);
+            nextNum=tenmuber;
         }
 
-        switch (number) {
+
+        switch (tenmuber) {
             case tBlock:
                 block = new int[][]{
                         {0, 0, 0, 0},

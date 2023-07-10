@@ -97,8 +97,11 @@ public class MainActivity extends AppCompatActivity {
         final Runnable r = new Runnable() {
             @Override
             public void run() {
+
                 dw.showfield(Draw.Down);
                 handler.postDelayed(this, 1000);
+
+
 
                 TextView scoreText = findViewById(R.id.scoreText);
                 scoreText.setText(String.valueOf(dw.score));
@@ -114,10 +117,6 @@ public class MainActivity extends AppCompatActivity {
                     gameOverText.setText("");
                     resetButton.setVisibility(View.INVISIBLE);
                 }
-
-
-
-
             }
         };
         handler.post(r);
