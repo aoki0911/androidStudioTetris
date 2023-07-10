@@ -7,11 +7,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 public class blocks {
     static int num = 0;
-    static int nextNum=0;
+    static int nextNum = 0;
 
     private static int rotetanum = 0;
     public static final int tBlock = 1;
@@ -23,29 +22,29 @@ public class blocks {
     public static final int zBlock = 7;
 
     static int[][] block = new int[blockLenght][blockLenght];
-    static int[][] nowBlock=new int[blockLenght][blockLenght];
-    static int[][] nextBlock=new int[blockLenght][blockLenght];
-    static List<Integer> blockNumbers = Arrays.asList(1,2,3,4,5,6,7);
+    static int[][] nowBlock = new int[blockLenght][blockLenght];
+    static int[][] nextBlock = new int[blockLenght][blockLenght];
+    static List<Integer> blockNumbers = Arrays.asList(1, 2, 3, 4, 5, 6, 7);
     static List<Integer> randomNumbers = new ArrayList<>();
 
 
-
     public static void randomNumber() {
-        if(randomNumbers.size()<6){
-            for(int i=0;i<6;i++){
+        if (randomNumbers.size() <= 2) {
+            for (int i = 0; i < 6; i++) {
                 randomNumbers.add(blockNumbers.get(i));
             }
             Collections.shuffle(randomNumbers);
         }
     }
+
     public void blocks(int number) {
-        int tenmuber=0;
-        if(number==0){
-            tenmuber=randomNumbers.get(0);
-            num=tenmuber;
-        }else{
-            tenmuber=randomNumbers.get(1);
-            nextNum=tenmuber;
+        int tenmuber = 0;
+        if (number == 0) {
+            tenmuber = randomNumbers.get(0);
+            num = tenmuber;
+        } else {
+            tenmuber = randomNumbers.get(1);
+            nextNum = tenmuber;
         }
 
 
@@ -117,22 +116,22 @@ public class blocks {
         ;
     }
 
-    public void setNowBlock(){
+    public void setNowBlock() {
         blocks(0);
-        for(int i=0;i<blockLenght;i++){
-            for(int j=0;j<blockLenght;j++){
-                nowBlock[i][j]=block[i][j];
+        for (int i = 0; i < blockLenght; i++) {
+            for (int j = 0; j < blockLenght; j++) {
+                nowBlock[i][j] = block[i][j];
             }
         }
         Draw.moveflag = true;
         rotetanum = 0;
     }
 
-    public void setNextBlock(){
+    public void setNextBlock() {
         blocks(1);
-        for(int i=0;i<blockLenght;i++){
-            for(int j=0;j<blockLenght;j++){
-                nextBlock[i][j]=block[i][j];
+        for (int i = 0; i < blockLenght; i++) {
+            for (int j = 0; j < blockLenght; j++) {
+                nextBlock[i][j] = block[i][j];
             }
         }
     }

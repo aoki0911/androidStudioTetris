@@ -6,7 +6,6 @@ import static com.example.tetris.blocks.jBlock;
 import static com.example.tetris.blocks.lBlock;
 import static com.example.tetris.blocks.nextBlock;
 import static com.example.tetris.blocks.nextNum;
-import static com.example.tetris.blocks.num;
 import static com.example.tetris.blocks.oBlock;
 import static com.example.tetris.blocks.sBlock;
 import static com.example.tetris.blocks.tBlock;
@@ -22,16 +21,13 @@ import android.view.View;
 public class nextDraw extends View {
 
     blocks bs = new blocks();
-    //Draw dw=new Draw();
-    //Draw dw= this.findViewById(R.id.Draw);;
 
 
     private static int blocksize = 40;
     private static int nextxmax = 5;
     private static int nextymax = 5;
-    private static int nextH=nextymax*blocksize;
-    private static int nextW=nextxmax*blocksize;
-
+    private static int nextH = nextymax * blocksize;
+    private static int nextW = nextxmax * blocksize;
 
 
     public nextDraw(Context context, AttributeSet attrs) {
@@ -49,12 +45,12 @@ public class nextDraw extends View {
 
 
         Paint paint = new Paint();
-        Paint p0=new Paint();
+        Paint p0 = new Paint();
         Paint p1 = new Paint();
         p0.setColor(Color.BLACK);
         p1.setColor(Color.WHITE);
         p1.setStyle(Paint.Style.STROKE);
-        ca.drawRect(0,0,nextH,nextW,p0);
+        ca.drawRect(0, 0, nextH, nextW, p0);
         for (int i = 0; i < Draw.blockLenght; i++) {
             for (int j = 0; j < Draw.blockLenght; j++) {
                 int px = j * blocksize;
@@ -98,7 +94,7 @@ public class nextDraw extends View {
                             break;
                     }
                 }
-                ca.drawRect(0,0,nextH,nextW,p1);
+                ca.drawRect(0, 0, nextH, nextW, p1);
             }
         }
     }

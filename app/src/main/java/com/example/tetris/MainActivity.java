@@ -31,9 +31,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         dw = this.findViewById(R.id.Draw);
-        //dw.move(dw.Stational);
 
-        //Draw dw = new Draw(this);
         setContentView(R.layout.activity_main);
         timerset();
 
@@ -102,12 +100,11 @@ public class MainActivity extends AppCompatActivity {
                 handler.postDelayed(this, 1000);
 
 
-
                 TextView scoreText = findViewById(R.id.scoreText);
                 scoreText.setText(String.valueOf(dw.score));
 
                 TextView gameOverText = findViewById(R.id.gameOverText);
-                Button resetButton=findViewById(R.id.resetButton);
+                Button resetButton = findViewById(R.id.resetButton);
                 if (dw.gameOverFlag == true) {
                     gameOverText.setText(R.string.gameOver);
                     resetButton.setVisibility(View.VISIBLE);

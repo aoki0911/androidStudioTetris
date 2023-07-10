@@ -91,9 +91,6 @@ public class Draw extends View {
                 case Down:
                     if (canMove(0, 1, nowBlock)) {
                         offsety++;
-                        System.out.println("==================");
-                        System.out.println(canMove(0,1,nowBlock));
-                        System.out.println("==================");
 
                     } else {
                         if (!canMove(0, 0, nowBlock)) {
@@ -101,7 +98,6 @@ public class Draw extends View {
                         }
                         blockFixt();
                         checkfield();
-                        //bs.blockRandom.remove(0);
                     }
 
                 default:
@@ -330,6 +326,7 @@ public class Draw extends View {
                 }
             }
         }
+        bs.randomNumbers.remove(0);
         moveflag = false;
     }
 
