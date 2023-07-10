@@ -1,12 +1,12 @@
 package com.example.tetris;
 
-import static com.example.tetris.MainActivity.moveflag;
 import static com.example.tetris.blocks.iBlock;
 import static com.example.tetris.blocks.jBlock;
 import static com.example.tetris.blocks.lBlock;
 import static com.example.tetris.blocks.nowBlock;
 import static com.example.tetris.blocks.num;
 import static com.example.tetris.blocks.oBlock;
+import static com.example.tetris.blocks.randomNumber;
 import static com.example.tetris.blocks.sBlock;
 import static com.example.tetris.blocks.tBlock;
 import static com.example.tetris.blocks.zBlock;
@@ -28,8 +28,8 @@ public class Draw extends View {
     public static final int rotate = 3;
     public static final int Down = 4;
 
-    static final int xmax = 10;
-    static final int ymax = 15;
+    private static final int xmax = 10;
+    private static final int ymax = 15;
     static final int blocksize = 60;
     static int fieldW = xmax * blocksize;
     static int fieldH = ymax * blocksize;
@@ -40,7 +40,8 @@ public class Draw extends View {
     public static final int blockLenght = 4;
     int[][] field = new int[15][10];
     public static int score = 0;
-    public static boolean gameOverFlag =true;
+    public static boolean gameOverFlag = false;
+    static boolean moveflag;
 
 
     Paint paint = new Paint();
@@ -60,12 +61,14 @@ public class Draw extends View {
 
     protected void onDraw(Canvas ca) {
         super.onDraw(ca);
+        randomNumber();
+
         blocks bs = new blocks();
 
 
         if (moveflag == false) {
             initstartpoi();
-            bs.blocks();
+            bs.setNowBlock();
         }
         if (gameOverFlag != true) {
             switch (motion) {
@@ -88,9 +91,10 @@ public class Draw extends View {
                 case Down:
                     if (canMove(0, 1, nowBlock)) {
                         offsety++;
+
                     } else {
-                        if(!canMove(0,0,nowBlock)){
-                            gameOverFlag=true;
+                        if (!canMove(0, 0, nowBlock)) {
+                            gameOverFlag = true;
                         }
                         blockFixt();
                         checkfield();
@@ -101,8 +105,6 @@ public class Draw extends View {
             }
             blockDraw(ca);
         }
-
-        //move(motion);
     }
 
     public void showfield(int motion) {
@@ -110,36 +112,31 @@ public class Draw extends View {
         this.motion = motion;
     }
 
-    public void reset(){
-        gameOverFlag=false;
-        score=0;
-        motion=Stational;
+    public void reset() {
+        gameOverFlag = false;
+        score = 0;
+        motion = Stational;
         resetfield();
     }
 
-    public void resetfield(){
-        for(int i=0;i<ymax;i++){
-            for(int j=0;j<xmax;j++){
-                field[i][j]=0;
+    public void resetfield() {
+        for (int i = 0; i < ymax; i++) {
+            for (int j = 0; j < xmax; j++) {
+                field[i][j] = 0;
             }
         }
     }
-
 
 
     public void blockDraw(Canvas ca) {
 
 
         Paint p0 = new Paint();
-        p0.setColor(Color.BLACK);
-        /*Paint p2=new Paint();
-        p2.setColor(Color.argb(255, 255, 255, 0));
-        p2.setTextSize(200);*/
         Paint p1 = new Paint();
+        p0.setColor(Color.BLACK);
         p1.setColor(Color.WHITE);
         p1.setStyle(Paint.Style.STROKE);
         ca.drawRect(0, 0, fieldW, fieldH, p0);
-        //ca.drawText(String.valueOf(canMove(0,1,nowBlock)),300,300,p2);
         for (int i = 0; i < ymax; i++) {
             for (int j = 0; j < xmax; j++) {
                 int px = j * blocksize;
@@ -192,7 +189,6 @@ public class Draw extends View {
                 }
             }
         }
-        //invalidate();
     }
 
 
@@ -255,25 +251,10 @@ public class Draw extends View {
 
     }
 
-    public void initstartpoi() {
+    public static void initstartpoi() {
         offsetx = xmax / 2 - blockLenght / 2;
         offsety = 0;
     }
-
-    public void move(int motion) {
-            /*if (MainActivity.a_vals[0] < -3) {
-                motion = Right;
-            }
-            if (MainActivity.a_vals[0] > 3) {
-                motion = Left;
-            }
-            if (MainActivity.a_vals[0] < 3 && MainActivity.a_vals[0] > -3) {
-                motion = Stational;
-            }*/
-        //this.motion=motion;
-
-    }
-
 
     public boolean canMove(int dx, int dy, int[][] nowBlock) {
         for (int i = 0; i < blockLenght; i++) {
@@ -345,6 +326,7 @@ public class Draw extends View {
                 }
             }
         }
+        bs.randomNumbers.remove(0);
         moveflag = false;
     }
 

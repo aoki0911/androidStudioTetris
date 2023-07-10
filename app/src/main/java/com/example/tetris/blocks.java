@@ -3,9 +3,15 @@ package com.example.tetris;
 
 import static com.example.tetris.Draw.blockLenght;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 public class blocks {
     static int num = 0;
-    int postnum = num;
+    static int nextNum = 0;
+
     private static int rotetanum = 0;
     public static final int tBlock = 1;
     public static final int sBlock = 2;
@@ -15,33 +21,36 @@ public class blocks {
     public static final int jBlock = 6;
     public static final int zBlock = 7;
 
+    static int[][] block = new int[blockLenght][blockLenght];
     static int[][] nowBlock = new int[blockLenght][blockLenght];
-    int count = 0;
+    static int[][] nextBlock = new int[blockLenght][blockLenght];
+    static List<Integer> blockNumbers = Arrays.asList(1, 2, 3, 4, 5, 6, 7);
+    static List<Integer> randomNumbers = new ArrayList<>();
 
-    public void blocks() {
-        int prenum = 0;
-        if (count == 0) {
-            num = (int) (Math.random() * 7) + 1;
-            count++;
-        } else {
-            //ブロックランダム抽選
-            prenum = (int) (Math.random() * 7) + 1;
-            if (postnum == prenum) {
-                while (true) {
-                    prenum = (int) (Math.random() * 7) + 1;
-                    if (postnum != prenum) {
-                        num = prenum;
-                        break;
-                    }
-                }
-            } else {
-                num = prenum;
+
+    public static void randomNumber() {
+        if (randomNumbers.size() <= 2) {
+            for (int i = 0; i < 6; i++) {
+                randomNumbers.add(blockNumbers.get(i));
             }
+            Collections.shuffle(randomNumbers);
+        }
+    }
+
+    public void blocks(int number) {
+        int tenmuber = 0;
+        if (number == 0) {
+            tenmuber = randomNumbers.get(0);
+            num = tenmuber;
+        } else {
+            tenmuber = randomNumbers.get(1);
+            nextNum = tenmuber;
         }
 
-        switch (num) {
+
+        switch (tenmuber) {
             case tBlock:
-                nowBlock = new int[][]{
+                block = new int[][]{
                         {0, 0, 0, 0},
                         {0, 0, 1, 0},
                         {0, 1, 1, 1},
@@ -50,7 +59,7 @@ public class blocks {
                 break;
 
             case sBlock:
-                nowBlock = new int[][]{
+                block = new int[][]{
                         {0, 0, 0, 0},
                         {0, 1, 1, 0},
                         {1, 1, 0, 0},
@@ -59,7 +68,7 @@ public class blocks {
                 break;
 
             case iBlock:
-                nowBlock = new int[][]{
+                block = new int[][]{
                         {0, 1, 0, 0},
                         {0, 1, 0, 0},
                         {0, 1, 0, 0},
@@ -68,7 +77,7 @@ public class blocks {
                 break;
 
             case oBlock:
-                nowBlock = new int[][]{
+                block = new int[][]{
                         {0, 1, 1, 0},
                         {0, 1, 1, 0},
                         {0, 0, 0, 0},
@@ -77,7 +86,7 @@ public class blocks {
                 break;
 
             case lBlock:
-                nowBlock = new int[][]{
+                block = new int[][]{
                         {0, 0, 0, 0},
                         {0, 1, 1, 1},
                         {0, 1, 0, 0},
@@ -86,7 +95,7 @@ public class blocks {
                 break;
 
             case jBlock:
-                nowBlock = new int[][]{
+                block = new int[][]{
                         {0, 1, 0, 0},
                         {0, 1, 1, 1},
                         {0, 0, 0, 0},
@@ -94,7 +103,7 @@ public class blocks {
                 };
                 break;
             case zBlock:
-                nowBlock = new int[][]{
+                block = new int[][]{
                         {0, 0, 0, 0},
                         {0, 1, 1, 0},
                         {0, 0, 1, 1},
@@ -105,8 +114,26 @@ public class blocks {
                 break;
         }
         ;
-        MainActivity.moveflag = true;
+    }
+
+    public void setNowBlock() {
+        blocks(0);
+        for (int i = 0; i < blockLenght; i++) {
+            for (int j = 0; j < blockLenght; j++) {
+                nowBlock[i][j] = block[i][j];
+            }
+        }
+        Draw.moveflag = true;
         rotetanum = 0;
+    }
+
+    public void setNextBlock() {
+        blocks(1);
+        for (int i = 0; i < blockLenght; i++) {
+            for (int j = 0; j < blockLenght; j++) {
+                nextBlock[i][j] = block[i][j];
+            }
+        }
     }
 
     public void roteta() {
