@@ -30,7 +30,7 @@ public class Draw extends View {
 
     private static final int xmax = 10;
     private static final int ymax = 15;
-    static final int blocksize = 60;
+    static final int blocksize = 75;
     static int fieldW = xmax * blocksize;
     static int fieldH = ymax * blocksize;
 
