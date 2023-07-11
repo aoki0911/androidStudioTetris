@@ -22,8 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     Handler handler = new Handler();
-
-
+    public static boolean startFlag = false;
     Draw dw;
 
     @Override
@@ -92,30 +91,36 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void timerset() {
-        final Runnable r = new Runnable() {
-            @Override
-            public void run() {
+        Button resetButton = findViewById(R.id.resetButton);
+        if (startFlag) {
+            final Runnable r = new Runnable() {
+                @Override
+                public void run() {
 
-                dw.showfield(Draw.Down);
-                handler.postDelayed(this, 1000);
+                    dw.showfield(Draw.Down);
+                    handler.postDelayed(this, 1000);
 
 
-                TextView scoreText = findViewById(R.id.scoreText);
-                scoreText.setText(String.valueOf(dw.score));
+                    TextView scoreText = findViewById(R.id.scoreText);
+                    scoreText.setText(String.valueOf(dw.score));
 
-                TextView gameOverText = findViewById(R.id.gameOverText);
-                Button resetButton = findViewById(R.id.resetButton);
-                if (dw.gameOverFlag == true) {
-                    gameOverText.setText(R.string.gameOver);
-                    resetButton.setVisibility(View.VISIBLE);
-                    resetButton.setText("Reset");
-                    setresetButton(resetButton);
-                } else {
-                    gameOverText.setText("");
-                    resetButton.setVisibility(View.INVISIBLE);
+                    TextView gameOverText = findViewById(R.id.gameOverText);
+
+                    if (dw.gameOverFlag) {
+                        resetButton.setVisibility(View.VISIBLE);
+                        gameOverText.setText(R.string.gameOver);
+                        resetButton.setVisibility(View.VISIBLE);
+                        resetButton.setText("Reset");
+                        setresetButton(resetButton);
+                    } else {
+                        gameOverText.setText("");
+                        resetButton.setVisibility(View.INVISIBLE);
+                    }
                 }
-            }
-        };
-        handler.post(r);
+            };
+            handler.post(r);
+        } else {
+            resetButton.setVisibility(View.INVISIBLE);
+        }
     }
 }
