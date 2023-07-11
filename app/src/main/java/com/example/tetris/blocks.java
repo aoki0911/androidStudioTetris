@@ -61,26 +61,26 @@ public class blocks {
             case sBlock:
                 block = new int[][]{
                         {0, 0, 0, 0},
+                        {0, 0, 1, 1},
                         {0, 1, 1, 0},
-                        {1, 1, 0, 0},
                         {0, 0, 0, 0}
                 };
                 break;
 
             case iBlock:
                 block = new int[][]{
-                        {0, 1, 0, 0},
-                        {0, 1, 0, 0},
-                        {0, 1, 0, 0},
-                        {0, 1, 0, 0}
+                        {0, 0, 1, 0},
+                        {0, 0, 1, 0},
+                        {0, 0, 1, 0},
+                        {0, 0, 1, 0}
                 };
                 break;
 
             case oBlock:
                 block = new int[][]{
-                        {0, 1, 1, 0},
-                        {0, 1, 1, 0},
                         {0, 0, 0, 0},
+                        {0, 1, 1, 0},
+                        {0, 1, 1, 0},
                         {0, 0, 0, 0}
                 };
                 break;
@@ -96,9 +96,9 @@ public class blocks {
 
             case jBlock:
                 block = new int[][]{
+                        {0, 0, 0, 0},
                         {0, 1, 0, 0},
                         {0, 1, 1, 1},
-                        {0, 0, 0, 0},
                         {0, 0, 0, 0}
                 };
                 break;
@@ -183,8 +183,8 @@ public class blocks {
                     case 0:
                         nowBlock = new int[][]{
                                 {0, 0, 0, 0},
+                                {0, 0, 1, 1},
                                 {0, 1, 1, 0},
-                                {1, 1, 0, 0},
                                 {0, 0, 0, 0}
                         };
                         rotetanum++;
@@ -204,10 +204,10 @@ public class blocks {
                 switch (rotetanum) {
                     case 0:
                         nowBlock = new int[][]{
-                                {0, 1, 0, 0},
-                                {0, 1, 0, 0},
-                                {0, 1, 0, 0},
-                                {0, 1, 0, 0}
+                                {0, 0, 1, 0},
+                                {0, 0, 1, 0},
+                                {0, 0, 1, 0},
+                                {0, 0, 1, 0}
                         };
                         rotetanum++;
                         break;
@@ -224,9 +224,9 @@ public class blocks {
                 break;
             case oBlock:
                 nowBlock = new int[][]{
-                        {0, 1, 1, 0},
-                        {0, 1, 1, 0},
                         {0, 0, 0, 0},
+                        {0, 1, 1, 0},
+                        {0, 1, 1, 0},
                         {0, 0, 0, 0}
                 };
                 break;
@@ -274,9 +274,9 @@ public class blocks {
                 switch (rotetanum) {
                     case 0:
                         nowBlock = new int[][]{
+                                {0, 0, 0, 0},
                                 {0, 1, 0, 0},
                                 {0, 1, 1, 1},
-                                {0, 0, 0, 0},
                                 {0, 0, 0, 0}
                         };
                         rotetanum++;
