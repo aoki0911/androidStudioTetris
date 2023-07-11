@@ -94,7 +94,6 @@ public class nextDraw extends View {
                             break;
                     }
                 }
-                ca.drawRect(0, 0, nextH, nextW, p1);
             }
         }
     }
