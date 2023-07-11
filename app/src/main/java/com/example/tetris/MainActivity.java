@@ -45,6 +45,9 @@ public class MainActivity extends AppCompatActivity {
 
         Button rotetaButton = findViewById(R.id.rotateButton);
         setButtonFunction(rotetaButton, Draw.rotate);
+
+        Button downButton = findViewById(R.id.downButton);
+        setDownButtonFunction(downButton);
     }
 
     private void setButtonFunction(Button button, final int motion) {
@@ -55,13 +58,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
     private void setDownButtonFunction(Button button) {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                while(true){
+                while (true) {
                     Draw.offsety++;
-                    if (dw.canMove(0, 1, blocks.nowBlock)==false) {
+                    if (dw.canMove(0, 1, blocks.nowBlock) == false) {
                         dw.blockFixt();
                         break;
                     }
