@@ -82,12 +82,14 @@ public class Draw extends View {
                     if (canMove(-1, 0, nowBlock)) {
                         offsetx = offsetx - 1;
                     }
-
                     break;
+
                 case rotate:
                     if (canMove(0, 0, nowBlock)) {
                         bs.roteta();
                     }
+                    break;
+
                 case Down:
                     if (canMove(0, 1, nowBlock)) {
                         offsety++;

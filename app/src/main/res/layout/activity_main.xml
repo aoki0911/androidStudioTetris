@@ -60,7 +60,7 @@
         android:id="@+id/leftButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="0dp"
         android:layout_marginTop="460dp"
         android:text="left"
         app:layout_constraintStart_toStartOf="parent"
@@ -70,7 +70,7 @@
         android:id="@+id/righttButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="104dp"
+        android:layout_marginStart="88dp"
         android:layout_marginTop="460dp"
         android:text="Right"
         app:layout_constraintStart_toStartOf="parent"
@@ -80,7 +80,7 @@
         android:id="@+id/rotateButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="192dp"
+        android:layout_marginStart="176dp"
         android:layout_marginTop="460dp"
         android:text="Roteta"
         app:layout_constraintStart_toStartOf="parent"
@@ -96,7 +96,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
+    <Button
+        android:id="@+id/downButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="268dp"
+        android:layout_marginTop="460dp"
+        android:text="down"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
