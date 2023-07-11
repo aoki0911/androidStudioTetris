@@ -55,6 +55,20 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+    private void setDownButtonFunction(Button button) {
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                while(true){
+                    Draw.offsety++;
+                    if (dw.canMove(0, 1, blocks.nowBlock)==false) {
+                        dw.blockFixt();
+                        break;
+                    }
+                }
+            }
+        });
+    }
 
     private void setresetButton(Button button) {
         button.setOnClickListener(new View.OnClickListener() {
