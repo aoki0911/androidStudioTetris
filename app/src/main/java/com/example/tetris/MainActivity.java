@@ -24,7 +24,6 @@ public class MainActivity extends AppCompatActivity {
 
     Handler handler = new Handler();
     public static boolean startFlag = false;
-
     MediaPlayer bgm;
     MediaPlayer gameover;
 
@@ -37,11 +36,7 @@ public class MainActivity extends AppCompatActivity {
         dw = this.findViewById(R.id.Draw);
         dw.showfield(Draw.Stational);
 
-        bgm=MediaPlayer.create(this,R.raw.bgm);
-        gameover=MediaPlayer.create(this,R.raw.gameover);
-
         if(startFlag=true) {
-            bgm.start();
             timerset();
         }
 
