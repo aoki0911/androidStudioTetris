@@ -32,7 +32,9 @@ public class MainActivity extends AppCompatActivity {
         dw = this.findViewById(R.id.Draw);
 
         setContentView(R.layout.activity_main);
-        timerset();
+        if(startFlag=true) {
+            timerset();
+        }
 
         dw = this.findViewById(R.id.Draw);
         dw.showfield(Draw.Stational);
