@@ -63,9 +63,6 @@ public class Draw extends View {
         super.onDraw(ca);
         randomNumber();
 
-        blocks bs = new blocks();
-
-
         if (moveflag == false) {
             initstartpoi();
             bs.setNowBlock();

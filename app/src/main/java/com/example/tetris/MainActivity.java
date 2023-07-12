@@ -4,6 +4,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -23,21 +24,26 @@ public class MainActivity extends AppCompatActivity {
 
     Handler handler = new Handler();
     public static boolean startFlag = false;
+
+    MediaPlayer bgm;
+    MediaPlayer gameover;
+
     Draw dw;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        dw = this.findViewById(R.id.Draw);
-
         setContentView(R.layout.activity_main);
-        if(startFlag=true) {
-            timerset();
-        }
-
         dw = this.findViewById(R.id.Draw);
         dw.showfield(Draw.Stational);
+
+        bgm=MediaPlayer.create(this,R.raw.bgm);
+        gameover=MediaPlayer.create(this,R.raw.gameover);
+
+        if(startFlag=true) {
+            bgm.start();
+            timerset();
+        }
 
         Button leftButton = findViewById(R.id.leftButton);
         setButtonFunction(leftButton, Draw.Left);
