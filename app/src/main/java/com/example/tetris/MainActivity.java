@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     public static boolean startFlag = false;
     music ms;
     MediaPlayer bgm;
+    MediaPlayer gameover;
     Draw dw;
 
     @Override
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
         ms=new music(getApplicationContext());
         bgm=ms.getMuic(0);
+        gameover=ms.getMuic(1);
 
         if(startFlag=true) {
             timerset();
@@ -139,6 +141,7 @@ public class MainActivity extends AppCompatActivity {
                         handler.removeCallbacks(this);
                         bgm.stop();
                         bgm.reset();
+                        gameover.start();
                     } else {
                         gameOverText.setText("");
                         resetButton.setVisibility(View.INVISIBLE);
