@@ -36,9 +36,11 @@ public class nextDraw extends View {
 
     protected void onDraw(Canvas ca) {
         super.onDraw(ca);
-        bs.setNextBlock();
-        nextDraw(ca);
-        invalidate();
+        if(!Draw.gameOverFlag) {
+            bs.setNextBlock();
+            nextDraw(ca);
+            invalidate();
+        }
     }
 
     public void nextDraw(Canvas ca) {

@@ -16,10 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class MainActivity extends AppCompatActivity {
 
 
-    SensorManager sm;
-    SEL sel;
-
-    public static float[] a_vals = new float[3];
+    Button resetButton;
 
 
     Handler handler = new Handler();
@@ -36,11 +33,13 @@ public class MainActivity extends AppCompatActivity {
         dw = this.findViewById(R.id.Draw);
         dw.showfield(Draw.Stational);
 
-        ms=new music(getApplicationContext());
-        bgm=ms.getMuic(0);
-        gameover=ms.getMuic(1);
+        ms = new music(getApplicationContext());
+        if(bgm==null) {
+            bgm = ms.getMuic(0);
+        }
+        gameover = ms.getMuic(1);
 
-        if(startFlag=true) {
+        if (startFlag = true) {
             timerset();
             bgm.start();
         }
@@ -56,6 +55,9 @@ public class MainActivity extends AppCompatActivity {
 
         Button downButton = findViewById(R.id.downButton);
         setDownButtonFunction(downButton);
+
+        resetButton = findViewById(R.id.resetButton);
+        setresetButton(resetButton);
     }
 
     private void setButtonFunction(Button button, final int motion) {
@@ -87,37 +89,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 dw.reset();
+                try{
+                    bgm.prepare();
+                }catch (Exception e){}
+                bgm.start();
             }
         });
     }
 
-    protected void onResume() {
-        super.onResume();
-        sm = (SensorManager) getSystemService(SENSOR_SERVICE);
-        Sensor accelerometer = sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        sel = new SEL();
-        sm.registerListener(sel, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
-    }
-
-    protected void onPause() {
-        super.onPause();
-        sm.unregisterListener(sel);
-    }
-
-    class SEL implements SensorEventListener {
-
-        public void onSensorChanged(SensorEvent event) {
-            if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
-                a_vals = event.values;
-            }
-        }
-
-        public void onAccuracyChanged(Sensor sensor, int accuracy) {
-        }
-    }
-
     private void timerset() {
-        Button resetButton = findViewById(R.id.resetButton);
+        //resetButton = findViewById(R.id.resetButton);
         if (startFlag) {
             final Runnable r = new Runnable() {
                 @Override
@@ -133,14 +114,13 @@ public class MainActivity extends AppCompatActivity {
                     TextView gameOverText = findViewById(R.id.gameOverText);
 
                     if (dw.gameOverFlag) {
+                        setresetButton(resetButton);
                         resetButton.setVisibility(View.VISIBLE);
                         gameOverText.setText(R.string.gameOver);
                         resetButton.setVisibility(View.VISIBLE);
                         resetButton.setText("Reset");
-                        setresetButton(resetButton);
-                        handler.removeCallbacks(this);
+                        //handler.removeCallbacks(this);
                         bgm.stop();
-                        bgm.reset();
                         gameover.start();
                     } else {
                         gameOverText.setText("");

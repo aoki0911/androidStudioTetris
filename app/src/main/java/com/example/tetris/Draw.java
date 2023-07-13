@@ -63,11 +63,11 @@ public class Draw extends View {
         super.onDraw(ca);
         randomNumber();
 
-        if (moveflag == false) {
+        if (!moveflag) {
             initstartpoi();
             bs.setNowBlock();
         }
-        if (gameOverFlag != true) {
+        if (!gameOverFlag) {
             switch (motion) {
                 case Right:
                     if (canMove(1, 0, nowBlock)) {
@@ -115,6 +115,7 @@ public class Draw extends View {
         gameOverFlag = false;
         score = 0;
         motion = Stational;
+        moveflag=false;
         resetfield();
     }
 
