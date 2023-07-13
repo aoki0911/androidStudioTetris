@@ -24,7 +24,8 @@ public class MainActivity extends AppCompatActivity {
 
     Handler handler = new Handler();
     public static boolean startFlag = false;
-
+    music ms;
+    MediaPlayer bgm;
     Draw dw;
 
     @Override
@@ -34,9 +35,8 @@ public class MainActivity extends AppCompatActivity {
         dw = this.findViewById(R.id.Draw);
         dw.showfield(Draw.Stational);
 
-        music ms=new music(getApplicationContext());
-
-        MediaPlayer bgm=ms.getMuic(0);
+        ms=new music(getApplicationContext());
+        bgm=ms.getMuic(0);
 
         if(startFlag=true) {
             timerset();
@@ -137,6 +137,8 @@ public class MainActivity extends AppCompatActivity {
                         resetButton.setText("Reset");
                         setresetButton(resetButton);
                         handler.removeCallbacks(this);
+                        bgm.stop();
+                        bgm.reset();
                     } else {
                         gameOverText.setText("");
                         resetButton.setVisibility(View.INVISIBLE);
