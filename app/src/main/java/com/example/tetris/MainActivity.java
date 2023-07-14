@@ -43,9 +43,6 @@ public class MainActivity extends AppCompatActivity {
             bgm.start();
         }
         randomNumber();
-        System.out.println("===============");
-        System.out.println("randomNumber");
-        System.out.println("===============");
 
         Button leftButton = findViewById(R.id.leftButton);
         setButtonFunction(leftButton, Draw.Left);
@@ -80,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
                     Draw.offsety++;
                     if (dw.canMove(0, 1, blocks.nowBlock) == false) {
                         dw.blockFixt();
+                        dw.checkfield();
                         break;
                     }
                 }

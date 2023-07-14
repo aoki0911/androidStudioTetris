@@ -62,10 +62,7 @@ public class Draw extends View {
     protected void onDraw(Canvas ca) {
         super.onDraw(ca);
 
-       randomNumber();
-        System.out.println("===============");
-        System.out.println("randomNumber");
-        System.out.println("===============");
+        randomNumber();
         if (!moveflag) {
             initstartpoi();
             bs.setNowBlock();
@@ -93,7 +90,6 @@ public class Draw extends View {
                 case Down:
                     if (canMove(0, 1, nowBlock)) {
                         offsety++;
-
                     } else {
                         if (!canMove(0, 0, nowBlock)) {
                             gameOverFlag = true;
@@ -118,7 +114,7 @@ public class Draw extends View {
         gameOverFlag = false;
         score = 0;
         motion = Stational;
-        moveflag=false;
+        moveflag = false;
         resetfield();
     }
 
