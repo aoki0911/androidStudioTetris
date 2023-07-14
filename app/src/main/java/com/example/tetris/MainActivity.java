@@ -1,9 +1,7 @@
 package com.example.tetris;
 
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
+import static com.example.tetris.blocks.randomNumber;
+
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
@@ -25,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     MediaPlayer bgm;
     MediaPlayer gameover;
     Draw dw;
+    blocks bs=new blocks();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +42,10 @@ public class MainActivity extends AppCompatActivity {
             timerset();
             bgm.start();
         }
+        randomNumber();
+        System.out.println("===============");
+        System.out.println("randomNumber");
+        System.out.println("===============");
 
         Button leftButton = findViewById(R.id.leftButton);
         setButtonFunction(leftButton, Draw.Left);
