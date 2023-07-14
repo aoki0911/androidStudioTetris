@@ -61,8 +61,11 @@ public class Draw extends View {
 
     protected void onDraw(Canvas ca) {
         super.onDraw(ca);
-        randomNumber();
 
+       randomNumber();
+        System.out.println("===============");
+        System.out.println("randomNumber");
+        System.out.println("===============");
         if (!moveflag) {
             initstartpoi();
             bs.setNowBlock();

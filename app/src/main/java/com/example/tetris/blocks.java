@@ -38,6 +38,7 @@ public class blocks {
     }
 
     public void blocks(int number) {
+        System.out.println(randomNumbers.size());
         int tenmuber = 0;
         if (number == 0) {
             tenmuber = randomNumbers.get(0);
