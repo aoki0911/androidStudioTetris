@@ -25,6 +25,7 @@ public class hold extends View {
     private static int nextH = nextymax * blocksize;
     private static int nextW = nextxmax * blocksize;
     private int holdNum=0;
+    private boolean holdinside=false;
     public hold(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
@@ -38,14 +39,19 @@ public class hold extends View {
     }
 
     public void hold(){
-        if(holdBlock==null){
+        if(!holdinside){
             for(int i=0;i<Draw.blockLenght;i++){
                 for(int j=0;j<Draw.blockLenght;j++){
                     holdBlock[i][j]=blocks.nowBlock[i][j];
                 }
             }
+            System.out.println("==========================-");
+            System.out.println("zikkou");
+            System.out.println("==========================-");
             holdNum=bs.randomNumbers.get(0);
             bs.randomNumbers.remove(0);
+            Draw.moveflag=false;
+            holdinside=true;
         }else{
             int[][] copyNowBlock=new int[Draw.blockLenght][Draw.blockLenght];
             int[][] copyHoldBlock=new int[Draw.blockLenght][Draw.blockLenght];
@@ -77,7 +83,7 @@ public class hold extends View {
             for (int j = 0; j < Draw.blockLenght; j++) {
                 int px = j * blocksize;
                 int py = i * blocksize;
-                if (nextBlock[i][j] == 1) {
+                if (holdBlock[i][j] == 1) {
                     switch (holdNum) {
                         case tBlock:
                             paint.setColor(Color.BLUE);
