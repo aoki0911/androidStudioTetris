@@ -48,32 +48,41 @@ public class MainActivity extends AppCompatActivity {
             timerset();
             bgm.start();
         }
+        //ブロックのランダムメソッド
         randomNumber();
 
+        //左移動のボタン定義、機能定義
         Button leftButton = findViewById(R.id.leftButton);
         setButtonFunction(leftButton, Draw.Left);
 
+        //右移動のボタン定義、機能定義
         Button rightButton = findViewById(R.id.righttButton);
         setButtonFunction(rightButton, Draw.Right);
 
+        //回転のボタン定義、機能定義
         Button rotetaButton = findViewById(R.id.rotateButton);
         setButtonFunction(rotetaButton, Draw.rotate);
 
+        //高速落下のボタン定義、機能定義
         Button downButton = findViewById(R.id.downButton);
         setDownButtonFunction(downButton);
 
+        //リセットのボタン定義、機能定義
         resetButton = findViewById(R.id.resetButton);
         setresetButton(resetButton);
 
+        //ホールドのボタン定義、機能定義
         Button holdButton=findViewById(R.id.holdButton);
         setHoldButtonFunction(holdButton);
 
+        //最高得点のなどの定義
         scoreLabel = findViewById(R.id.scoreLabel);
         highScoreLabel = findViewById(R.id.highScoreLabel);
         sp = getSharedPreferences("GAME_DATA", MODE_PRIVATE);
         highScore = sp.getInt("High_Score", 0);
     }
 
+    //移動機能定義メソッド
     private void setButtonFunction(Button button, final int motion) {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,6 +91,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    //ホールドボタンの機能定義メソッド
     private void setHoldButtonFunction(Button button) {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    //高速落下ボタンの機能定義メソッド
     private void setDownButtonFunction(Button button) {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    //リセットボタンの機能定義メソッド
     private void setresetButton(Button button) {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,6 +134,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    //一定間隔の時間で処理を行うメソッド
     private void timerset() {
         //resetButton = findViewById(R.id.resetButton);
         if (startFlag) {
@@ -128,23 +142,28 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void run() {
 
+                    //一定周期の落下
                     dw.showfield(Draw.Down);
                     handler.postDelayed(this, 1000);
 
-
+                    //スコアの表示
                     TextView scoreText = findViewById(R.id.scoreText);
                     scoreText.setText(String.valueOf(score));
 
                     TextView gameOverText = findViewById(R.id.gameOverText);
 
+                    //ゲームオーバーの時の処理
                     if (dw.gameOverFlag) {
+                        //リセットボタンの機能定義、ボタンの表示
                         setresetButton(resetButton);
                         resetButton.setVisibility(View.VISIBLE);
+                        //テキストセット
                         gameOverText.setText(R.string.gameOver);
-                        resetButton.setVisibility(View.VISIBLE);
                         resetButton.setText("Reset");
+                        //音楽停止と再生
                         bgm.stop();
                         gameover.start();
+                        //ハイスコア表示、更新処理
                         if (score >= highScore) {
                             highScoreLabel.setText("High Score :" + score);
                             SharedPreferences.Editor editor = sp.edit();
@@ -155,6 +174,7 @@ public class MainActivity extends AppCompatActivity {
                             scoreLabel.setText("Score :" + score);
                         }
                     } else {
+                        //リセットボタンの非表示
                         gameOverText.setText("");
                         resetButton.setVisibility(View.INVISIBLE);
                     }
