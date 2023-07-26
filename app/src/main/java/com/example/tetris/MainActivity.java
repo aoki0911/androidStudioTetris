@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     MediaPlayer bgm;
     MediaPlayer gameover;
     Draw dw;
-    blocks bs = new blocks();
+    hold hd;
     TextView scoreLabel;
     TextView highScoreLabel;
     SharedPreferences sp;
@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         dw = this.findViewById(R.id.Draw);
         dw.showfield(Draw.Stational);
+        hd=new hold(this,null);
 
         ms = new music(getApplicationContext());
         if (bgm == null) {
@@ -64,6 +65,8 @@ public class MainActivity extends AppCompatActivity {
 
         resetButton = findViewById(R.id.resetButton);
         setresetButton(resetButton);
+        Button holdButton=findViewById(R.id.holdButton);
+        setHoldButtonFunction(holdButton);
 
         scoreLabel = findViewById(R.id.scoreLabel);
         highScoreLabel = findViewById(R.id.highScoreLabel);
@@ -76,6 +79,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 dw.showfield(motion);
+            }
+        });
+    }
+    private void setHoldButtonFunction(Button button) {
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hd.hold();
             }
         });
     }
