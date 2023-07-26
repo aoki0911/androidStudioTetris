@@ -25,11 +25,11 @@ public class MainActivity extends AppCompatActivity {
     MediaPlayer bgm;
     MediaPlayer gameover;
     Draw dw;
-    hold hd;
     TextView scoreLabel;
     TextView highScoreLabel;
     SharedPreferences sp;
     int highScore;
+    public static boolean holdButtonclick=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         dw = this.findViewById(R.id.Draw);
         dw.showfield(Draw.Stational);
-        hd=new hold(this,null);
 
         ms = new music(getApplicationContext());
         if (bgm == null) {
@@ -65,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
 
         resetButton = findViewById(R.id.resetButton);
         setresetButton(resetButton);
+
         Button holdButton=findViewById(R.id.holdButton);
         setHoldButtonFunction(holdButton);
 
@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                hd.hold();
+                holdButtonclick=true;
             }
         });
     }

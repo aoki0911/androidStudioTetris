@@ -3,7 +3,6 @@ package com.example.tetris;
 import static com.example.tetris.blocks.iBlock;
 import static com.example.tetris.blocks.jBlock;
 import static com.example.tetris.blocks.lBlock;
-import static com.example.tetris.blocks.nextBlock;
 import static com.example.tetris.blocks.oBlock;
 import static com.example.tetris.blocks.sBlock;
 import static com.example.tetris.blocks.tBlock;
@@ -17,15 +16,16 @@ import android.util.AttributeSet;
 import android.view.View;
 
 public class hold extends View {
-    int [][] holdBlock =new int[Draw.blockLenght][Draw.blockLenght];
-    blocks bs=new blocks();
+    private static int[][] holdBlock = new int[Draw.blockLenght][Draw.blockLenght];
+    blocks bs = new blocks();
     private static int blocksize = 40;
     private static int nextxmax = 5;
     private static int nextymax = 5;
     private static int nextH = nextymax * blocksize;
     private static int nextW = nextxmax * blocksize;
-    private int holdNum=0;
-    private boolean holdinside=false;
+    private int holdNum = 0;
+    private boolean holdinside = false;
+
     public hold(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
@@ -33,45 +33,46 @@ public class hold extends View {
     @Override
     protected void onDraw(Canvas ca) {
         super.onDraw(ca);
-
+        if (MainActivity.holdButtonclick) {
+            holdfun();
+            MainActivity.holdButtonclick = false;
+        }
         holdDraw(ca);
-        invalidate();
+
     }
 
-    public void hold(){
-        if(!holdinside){
-            for(int i=0;i<Draw.blockLenght;i++){
-                for(int j=0;j<Draw.blockLenght;j++){
-                    holdBlock[i][j]=blocks.nowBlock[i][j];
+    public void holdfun() {
+        if (!holdinside) {
+            holdBlock = new int[Draw.blockLenght][Draw.blockLenght];
+            for (int i = 0; i < Draw.blockLenght; i++) {
+                for (int j = 0; j < Draw.blockLenght; j++) {
+                    holdBlock[i][j] = blocks.nowBlock[i][j];
                 }
             }
-            System.out.println("==========================-");
-            System.out.println("zikkou");
-            System.out.println("==========================-");
-            holdNum=bs.randomNumbers.get(0);
+            holdNum = bs.randomNumbers.get(0);
             bs.randomNumbers.remove(0);
-            Draw.moveflag=false;
-            holdinside=true;
-        }else{
-            int[][] copyNowBlock=new int[Draw.blockLenght][Draw.blockLenght];
-            int[][] copyHoldBlock=new int[Draw.blockLenght][Draw.blockLenght];
+            Draw.moveflag = false;
+            holdinside = true;
+        } else {
+            int[][] copyNowBlock = new int[Draw.blockLenght][Draw.blockLenght];
+            int[][] copyHoldBlock = new int[Draw.blockLenght][Draw.blockLenght];
 
-            for(int i=0;i<Draw.blockLenght;i++){
-                for(int j=0;j<Draw.blockLenght;j++){
-                    copyNowBlock[i][j]=blocks.nowBlock[i][j];
-                    copyHoldBlock[i][j]=holdBlock[i][j];
+            for (int i = 0; i < Draw.blockLenght; i++) {
+                for (int j = 0; j < Draw.blockLenght; j++) {
+                    copyNowBlock[i][j] = blocks.nowBlock[i][j];
+                    copyHoldBlock[i][j] = holdBlock[i][j];
                 }
             }
-            for(int i=0;i<Draw.blockLenght;i++){
-                for(int j=0;j<Draw.blockLenght;j++){
-                    blocks.nowBlock[i][j]=copyHoldBlock[i][j];
-                    holdBlock[i][j]=copyNowBlock[i][j];
+            for (int i = 0; i < Draw.blockLenght; i++) {
+                for (int j = 0; j < Draw.blockLenght; j++) {
+                    blocks.nowBlock[i][j] = copyHoldBlock[i][j];
+                    holdBlock[i][j] = copyNowBlock[i][j];
                 }
             }
         }
     }
 
-    public void holdDraw(Canvas ca){
+    public void holdDraw(Canvas ca) {
         Paint paint = new Paint();
         Paint p0 = new Paint();
         Paint p1 = new Paint();
@@ -124,5 +125,6 @@ public class hold extends View {
                 }
             }
         }
+        invalidate();
     }
 }
