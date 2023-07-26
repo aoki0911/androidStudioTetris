@@ -1,7 +1,9 @@
 package com.example.tetris;
 
+import static com.example.tetris.Draw.score;
 import static com.example.tetris.blocks.randomNumber;
 
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
@@ -23,7 +25,11 @@ public class MainActivity extends AppCompatActivity {
     MediaPlayer bgm;
     MediaPlayer gameover;
     Draw dw;
-    blocks bs=new blocks();
+    blocks bs = new blocks();
+    TextView scoreLabel;
+    TextView highScoreLabel;
+    SharedPreferences sp;
+    int highScore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         dw.showfield(Draw.Stational);
 
         ms = new music(getApplicationContext());
-        if(bgm==null) {
+        if (bgm == null) {
             bgm = ms.getMuic(0);
         }
         gameover = ms.getMuic(1);
@@ -58,6 +64,11 @@ public class MainActivity extends AppCompatActivity {
 
         resetButton = findViewById(R.id.resetButton);
         setresetButton(resetButton);
+
+        scoreLabel = findViewById(R.id.scoreLabel);
+        highScoreLabel = findViewById(R.id.highScoreLabel);
+        sp = getSharedPreferences("GAME_DATA", MODE_PRIVATE);
+        highScore = sp.getInt("High_Score", 0);
     }
 
     private void setButtonFunction(Button button, final int motion) {
@@ -90,9 +101,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 dw.reset();
-                try{
+                try {
                     bgm.prepare();
-                }catch (Exception e){}
+                } catch (Exception e) {
+                }
                 bgm.start();
             }
         });
@@ -110,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                     TextView scoreText = findViewById(R.id.scoreText);
-                    scoreText.setText(String.valueOf(dw.score));
+                    scoreText.setText(String.valueOf(score));
 
                     TextView gameOverText = findViewById(R.id.gameOverText);
 
@@ -120,9 +132,17 @@ public class MainActivity extends AppCompatActivity {
                         gameOverText.setText(R.string.gameOver);
                         resetButton.setVisibility(View.VISIBLE);
                         resetButton.setText("Reset");
-                        //handler.removeCallbacks(this);
                         bgm.stop();
                         gameover.start();
+                        if (score >= highScore) {
+                            highScoreLabel.setText("High Score :" + score);
+                            SharedPreferences.Editor editor = sp.edit();
+                            editor.putInt("High_Score", score);
+                            editor.apply();
+                        } else {
+                            highScoreLabel.setText("High Socre :" + highScore);
+                            scoreLabel.setText("Score :" + score);
+                        }
                     } else {
                         gameOverText.setText("");
                         resetButton.setVisibility(View.INVISIBLE);
