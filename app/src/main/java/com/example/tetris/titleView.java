@@ -14,10 +14,10 @@ public class titleView extends AppCompatActivity {
     protected void onCreate(Bundle saveInstanceState) {
         super.onCreate(saveInstanceState);
         setContentView(R.layout.titlelayout);
-        music ms=new music(getApplicationContext());
+        music ms = new music(getApplicationContext());
 
         ImageButton titleButton = findViewById(R.id.titleButton);
-        MediaPlayer click=ms.getMuic(2);
+        MediaPlayer click = ms.getMuic(2);
         titleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
