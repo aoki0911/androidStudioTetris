@@ -19,6 +19,7 @@ public class titleView extends AppCompatActivity {
         ImageButton titleButton = findViewById(R.id.titleButton);
         MediaPlayer click = ms.getMuic(2);
         titleButton.setOnClickListener(new View.OnClickListener() {
+            //タイトル画面タッチ時の遷移、効果音再生処理
             @Override
             public void onClick(View v) {
                 MainActivity.startFlag = true;

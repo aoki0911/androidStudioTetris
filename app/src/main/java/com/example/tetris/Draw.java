@@ -63,30 +63,35 @@ public class Draw extends View {
         super.onDraw(ca);
 
         randomNumber();
+        //ブロックが固定された後の処理
         if (!moveflag) {
             initstartpoi();
             bs.setNowBlock();
         }
         if (!gameOverFlag) {
             switch (motion) {
+                //右移動の処理
                 case Right:
                     if (canMove(1, 0, nowBlock)) {
                         offsetx = offsetx + 1;
                     }
                     break;
 
+                    //左移動の処理
                 case Left:
                     if (canMove(-1, 0, nowBlock)) {
                         offsetx = offsetx - 1;
                     }
                     break;
 
+                    //回転移動の処理
                 case rotate:
                     if (canMove(0, 0, nowBlock)) {
                         bs.roteta();
                     }
                     break;
 
+                    //一定時間の落下処理
                 case Down:
                     if (canMove(0, 1, nowBlock)) {
                         offsety++;
@@ -105,11 +110,13 @@ public class Draw extends View {
         }
     }
 
+    //回転や左右などの動きの取得
     public void showfield(int motion) {
         invalidate();
         this.motion = motion;
     }
 
+    //リセット処理
     public void reset() {
         gameOverFlag = false;
         score = 0;
@@ -118,6 +125,7 @@ public class Draw extends View {
         resetfield();
     }
 
+    //フィールドリセット処理
     public void resetfield() {
         for (int i = 0; i < ymax; i++) {
             for (int j = 0; j < xmax; j++) {
@@ -127,6 +135,7 @@ public class Draw extends View {
     }
 
 
+    //ブロックの描画処理
     public void blockDraw(Canvas ca) {
 
 
@@ -136,6 +145,7 @@ public class Draw extends View {
         p1.setColor(Color.WHITE);
         p1.setStyle(Paint.Style.STROKE);
         ca.drawRect(0, 0, fieldW, fieldH, p0);
+        //固定されたブロックの描画処理
         for (int i = 0; i < ymax; i++) {
             for (int j = 0; j < xmax; j++) {
                 int px = j * blocksize;
@@ -180,7 +190,7 @@ public class Draw extends View {
                 ca.drawRect(px + blocksize, py + blocksize, px, py, p1);
             }
         }
-        //ブロック出現処置
+        //動いてるブロックの描画処理
         for (int i = 0; i < blockLenght; i++) {
             for (int j = 0; j < blockLenght; j++) {
                 if (blocks.nowBlock[i][j] == 1) {
@@ -191,6 +201,7 @@ public class Draw extends View {
     }
 
 
+    //動いているブロックの描画処理
     public void drawMoveBlock(int x, int y, Canvas ca) {
 
         Paint p1 = new Paint();
@@ -248,11 +259,13 @@ public class Draw extends View {
         }
     }
 
+    //ブロックの出現位置定義（offset初期化）
     public static void initstartpoi() {
         offsetx = xmax / 2 - blockLenght / 2;
         offsety = 0;
     }
 
+    //移動可能かを確認する処理
     public boolean canMove(int dx, int dy, int[][] nowBlock) {
         for (int i = 0; i < blockLenght; i++) {
             for (int j = 0; j < blockLenght; j++) {
@@ -281,6 +294,7 @@ public class Draw extends View {
     }
 
 
+    //ブロックの固定処理（nowblockからfieldに置き換える）
     public void blockFixt() {
         for (int i = 0; i < blockLenght; i++) {
             for (int j = 0; j < blockLenght; j++) {
@@ -327,15 +341,7 @@ public class Draw extends View {
         moveflag = false;
     }
 
-    public boolean onTouchEvent(MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            if (canMove(0, 0, nowBlock)) {
-                bs.roteta();
-            }
-        }
-        return true;
-    }
-
+    //列の削除の処理
     public void clearLine(int row) {
         for (int j = 0; j < xmax; j++) {
             field[row][j] = 0;
@@ -351,6 +357,7 @@ public class Draw extends View {
         score += 100;
     }
 
+    //fieldで列を確認、削除する処理
     public void checkfield() {
         for (int i = 0; i < ymax; i++) {
             for (int j = 0; j < xmax; j++) {
