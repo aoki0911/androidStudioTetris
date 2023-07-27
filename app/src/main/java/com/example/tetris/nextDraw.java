@@ -41,9 +41,8 @@ public class nextDraw extends View {
         invalidate();
     }
 
+    //次のブロックの描画処理
     public void nextDraw(Canvas ca) {
-
-
         Paint paint = new Paint();
         Paint p0 = new Paint();
         Paint p1 = new Paint();

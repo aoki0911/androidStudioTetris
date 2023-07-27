@@ -41,7 +41,9 @@ public class hold extends View {
 
     }
 
+    //ホールド処理
     public void holdfun() {
+        //一回目処理
         if (!holdinside) {
             for (int i = 0; i < Draw.blockLenght; i++) {
                 for (int j = 0; j < Draw.blockLenght; j++) {
@@ -52,7 +54,7 @@ public class hold extends View {
             bs.randomNumbers.remove(0);
             Draw.moveflag = false;
             holdinside = true;
-        } else {
+        } else {    //二回目以降
             int[][] copyNowBlock = new int[Draw.blockLenght][Draw.blockLenght];
             int[][] copyHoldBlock = new int[Draw.blockLenght][Draw.blockLenght];
 
@@ -81,6 +83,7 @@ public class hold extends View {
         }
     }
 
+    //ブロックの描画処理
     public void holdDraw(Canvas ca) {
         Paint paint = new Paint();
         Paint p0 = new Paint();
