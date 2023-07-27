@@ -174,9 +174,11 @@ public class MainActivity extends AppCompatActivity {
                             scoreLabel.setText("Score :" + score);
                         }
                     } else {
-                        //リセットボタンの非表示
+                        //ボタン,テキストの非表示
                         gameOverText.setText("");
                         resetButton.setVisibility(View.INVISIBLE);
+                        highScoreLabel.setText("");
+                        scoreLabel.setText("");
                     }
                 }
             };
