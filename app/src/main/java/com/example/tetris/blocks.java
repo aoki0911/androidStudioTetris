@@ -37,10 +37,10 @@ public class blocks {
             }
         }else {
             if (randomNumbers.size() <= 2) {
+                Collections.shuffle(blockNumbers);
                 for (int i = 2; i < 6; i++) {
                     randomNumbers.add(i, blockNumbers.get(i));
                 }
-                Collections.shuffle(randomNumbers);
             }
         }
     }
