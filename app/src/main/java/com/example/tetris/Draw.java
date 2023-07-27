@@ -246,8 +246,6 @@ public class Draw extends View {
             default:
                 break;
         }
-        ;
-
     }
 
     public static void initstartpoi() {
