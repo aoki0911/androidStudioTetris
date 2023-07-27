@@ -59,15 +59,15 @@ public class hold extends View {
             int[][] copyHoldBlock = new int[Draw.blockLenght][Draw.blockLenght];
 
 
-            int[] copyNumbers=new int[2];
-            copyNumbers[0]= bs.randomNumbers.get(0);
-            copyNumbers[1]= holdNum;
+            int[] copyNumbers = new int[2];
+            copyNumbers[0] = bs.randomNumbers.get(0);
+            copyNumbers[1] = holdNum;
 
             holdNum = copyNumbers[0];
 
             bs.randomNumbers.add(0, copyNumbers[1]);
             bs.randomNumbers.remove(1);
-            blocks.num=copyNumbers[1];
+            blocks.num = copyNumbers[1];
             for (int i = 0; i < Draw.blockLenght; i++) {
                 for (int j = 0; j < Draw.blockLenght; j++) {
                     copyNowBlock[i][j] = blocks.nowBlock[i][j];

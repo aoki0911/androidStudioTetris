@@ -16,7 +16,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
-import android.view.MotionEvent;
 import android.view.View;
 
 public class Draw extends View {
@@ -42,8 +41,8 @@ public class Draw extends View {
     public static int score = 0;
     public static boolean gameOverFlag = false;
     static boolean moveflag;
-    int count=0;
-    int conmbo=0;
+    int count = 0;
+    int conmbo = 0;
 
 
     Paint paint = new Paint();
@@ -79,21 +78,21 @@ public class Draw extends View {
                     }
                     break;
 
-                    //左移動の処理
+                //左移動の処理
                 case Left:
                     if (canMove(-1, 0, nowBlock)) {
                         offsetx = offsetx - 1;
                     }
                     break;
 
-                    //回転移動の処理
+                //回転移動の処理
                 case rotate:
                     if (canMove(0, 0, nowBlock)) {
                         bs.roteta();
                     }
                     break;
 
-                    //一定時間の落下処理
+                //一定時間の落下処理
                 case Down:
                     if (canMove(0, 1, nowBlock)) {
                         offsety++;
@@ -363,8 +362,8 @@ public class Draw extends View {
         for (int i = 0; i < ymax; i++) {
             for (int j = 0; j < xmax; j++) {
                 if (field[i][j] == 0) {
-                    count=0;
-                    conmbo=0;
+                    count = 0;
+                    conmbo = 0;
                     break;
                 } else if (j == xmax - 1 && field[i][j] > 0) {
                     clearLine(i);
@@ -373,8 +372,8 @@ public class Draw extends View {
                 }
             }
         }
-        if(count>0){
-            score+=100*(1+conmbo*0.1)*count;
+        if (count > 0) {
+            score += 100 * (1 + conmbo * 0.1) * count;
         }
     }
 }

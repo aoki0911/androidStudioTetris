@@ -130,11 +130,26 @@
         android:id="@+id/hold"
         android:layout_width="81dp"
         android:layout_height="76dp"
-
         android:layout_marginStart="5dp"
         android:layout_marginTop="32dp"
         app:layout_constraintStart_toEndOf="@+id/Draw"
         app:layout_constraintTop_toBottomOf="@+id/nextDraw" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="NEXT"
+        android:textSize="15dp"
+        app:layout_constraintBottom_toTopOf="@+id/hold"
+        app:layout_constraintStart_toStartOf="@+id/hold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="HOLD"
+        android:textSize="15dp"
+        app:layout_constraintBottom_toTopOf="@+id/nextDraw"
+        app:layout_constraintStart_toStartOf="@+id/nextDraw" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

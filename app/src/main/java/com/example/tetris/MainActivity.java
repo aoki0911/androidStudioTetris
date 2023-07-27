@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     TextView highScoreLabel;
     SharedPreferences sp;
     int highScore;
-    public static boolean holdButtonclick=false;
+    public static boolean holdButtonclick = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         setresetButton(resetButton);
 
         //ホールドのボタン定義、機能定義
-        Button holdButton=findViewById(R.id.holdButton);
+        Button holdButton = findViewById(R.id.holdButton);
         setHoldButtonFunction(holdButton);
 
         //最高得点のなどの定義
@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                holdButtonclick=true;
+                holdButtonclick = true;
             }
         });
     }

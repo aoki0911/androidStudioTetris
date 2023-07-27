@@ -26,16 +26,16 @@ public class blocks {
     static int[][] nextBlock = new int[blockLenght][blockLenght];
     static List<Integer> blockNumbers = Arrays.asList(1, 2, 3, 4, 5, 6, 7);
     static List<Integer> randomNumbers = new ArrayList<>();
-    static boolean firsttime=false;
+    static boolean firsttime = false;
 
 
     //ブロックのランダム処理
     public static void randomNumber() {
-        if(!firsttime){
-            for(int i=0;i<6;i++){
+        if (!firsttime) {
+            for (int i = 0; i < 6; i++) {
                 randomNumbers.add(blockNumbers.get(i));
             }
-        }else {
+        } else {
             if (randomNumbers.size() <= 2) {
                 Collections.shuffle(blockNumbers);
                 for (int i = 2; i < 6; i++) {
