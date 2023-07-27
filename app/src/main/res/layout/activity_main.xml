@@ -141,9 +141,11 @@
         android:text="NEXT"
         android:textSize="15dp"
         app:layout_constraintBottom_toTopOf="@+id/hold"
+        app:layout_constraintEnd_toEndOf="@+id/textView2"
         app:layout_constraintStart_toStartOf="@+id/hold" />
 
     <TextView
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="HOLD"

@@ -43,6 +43,7 @@ public class Draw extends View {
     static boolean moveflag;
     int count = 0;
     int conmbo = 0;
+    static int ghosty;
 
 
     Paint paint = new Paint();
@@ -196,6 +197,7 @@ public class Draw extends View {
             for (int j = 0; j < blockLenght; j++) {
                 if (blocks.nowBlock[i][j] == 1) {
                     drawMoveBlock(+offsetx + j, offsety + i, ca);
+                    ghostDraw(offsetx + j, getGhosty() + i, ca);
                 }
             }
         }
@@ -273,6 +275,33 @@ public class Draw extends View {
                 if (nowBlock[i][j] != 0) {
                     int nx = offsetx + j + dx;
                     int ny = offsety + i + dy;
+                    if (ny < 0) {
+                        return false;
+                    }
+                    if (nx < 0) {
+                        return false;
+                    }
+                    if (nx >= xmax) {
+                        return false;
+                    }
+                    if (ny >= ymax) {
+                        return false;
+                    }
+                    if (field[ny][nx] != 0) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+    public boolean ghostCanMove(int dx, int dy, int[][] nowBlock) {
+        for (int i = 0; i < blockLenght; i++) {
+            for (int j = 0; j < blockLenght; j++) {
+                if (nowBlock[i][j] != 0) {
+                    int nx = offsetx +j + dx;
+                    int ny = ghosty + i + dy;
                     if (ny < 0) {
                         return false;
                     }
@@ -374,6 +403,72 @@ public class Draw extends View {
         }
         if (count > 0) {
             score += 100 * (1 + conmbo * 0.1) * count;
+        }
+    }
+
+    //ゴースト（落下予測）
+    public int getGhosty() {
+        ghosty = 0;
+        while (ghostCanMove(0, 1, nowBlock)) {
+            ghosty++;
+        }
+        return ghosty;
+    }
+
+    //ゴースト描写
+    public void ghostDraw(int x, int y, Canvas ca) {
+        Paint p1 = new Paint();
+        p1.setColor(Color.WHITE);
+        p1.setStyle(Paint.Style.STROKE);
+
+        int px = x * blocksize;
+        int py = y * blocksize;
+
+        switch (num) {
+            case tBlock:
+                paint.setColor(Color.argb(127, 0, 0, 255));
+                ca.drawRect(px + blocksize, py + blocksize, px, py, paint);
+                ca.drawRect(px + blocksize, py + blocksize, px, py, p1);
+                break;
+
+            case sBlock:
+                paint.setColor(Color.argb(127, 0, 255, 0));
+                ca.drawRect(px + blocksize, py + blocksize, px, py, paint);
+                ca.drawRect(px + blocksize, py + blocksize, px, py, p1);
+                break;
+
+            case iBlock:
+                paint.setColor(Color.argb(127, 255, 0, 0));
+                ca.drawRect(px + blocksize, py + blocksize, px, py, paint);
+                ca.drawRect(px + blocksize, py + blocksize, px, py, p1);
+                break;
+
+            case oBlock:
+                paint.setColor(Color.argb(127, 0, 255, 255));
+                ca.drawRect(px + blocksize, py + blocksize, px, py, paint);
+                ca.drawRect(px + blocksize, py + blocksize, px, py, p1);
+                break;
+
+            case lBlock:
+                paint.setColor(Color.argb(127, 255, 0, 255));
+                ca.drawRect(px + blocksize, py + blocksize, px, py, paint);
+                ca.drawRect(px + blocksize, py + blocksize, px, py, p1);
+                break;
+
+            case jBlock:
+                paint.setColor(Color.argb(127, 255, 255, 0));
+                ca.drawRect(px + blocksize, py + blocksize, px, py, paint);
+                ca.drawRect(px + blocksize, py + blocksize, px, py, p1);
+                break;
+
+            case zBlock:
+                paint.setColor(Color.argb(127, 255, 165, 0));
+                ca.drawRect(px + blocksize, py + blocksize, px, py, paint);
+                ca.drawRect(px + blocksize, py + blocksize, px, py, p1);
+                break;
+
+            default:
+                break;
         }
     }
 }
