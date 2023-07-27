@@ -26,15 +26,22 @@ public class blocks {
     static int[][] nextBlock = new int[blockLenght][blockLenght];
     static List<Integer> blockNumbers = Arrays.asList(1, 2, 3, 4, 5, 6, 7);
     static List<Integer> randomNumbers = new ArrayList<>();
+    static boolean firsttime=false;
 
 
     //ブロックのランダム処理
     public static void randomNumber() {
-        if (randomNumbers.size() <= 2) {
-            for (int i = 0; i < 6; i++) {
+        if(!firsttime){
+            for(int i=0;i<6;i++){
                 randomNumbers.add(blockNumbers.get(i));
             }
-            Collections.shuffle(randomNumbers);
+        }else {
+            if (randomNumbers.size() <= 2) {
+                for (int i = 2; i < 6; i++) {
+                    randomNumbers.add(i, blockNumbers.get(i));
+                }
+                Collections.shuffle(randomNumbers);
+            }
         }
     }
 
