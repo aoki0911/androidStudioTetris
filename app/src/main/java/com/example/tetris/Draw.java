@@ -42,6 +42,8 @@ public class Draw extends View {
     public static int score = 0;
     public static boolean gameOverFlag = false;
     static boolean moveflag;
+    int count=0;
+    int conmbo=0;
 
 
     Paint paint = new Paint();
@@ -354,7 +356,6 @@ public class Draw extends View {
         for (int j = 0; j < xmax; j++) {
             field[0][j] = 0;
         }
-        score += 100;
     }
 
     //fieldで列を確認、削除する処理
@@ -362,11 +363,18 @@ public class Draw extends View {
         for (int i = 0; i < ymax; i++) {
             for (int j = 0; j < xmax; j++) {
                 if (field[i][j] == 0) {
+                    count=0;
+                    conmbo=0;
                     break;
                 } else if (j == xmax - 1 && field[i][j] > 0) {
                     clearLine(i);
+                    count++;
+                    conmbo++;
                 }
             }
+        }
+        if(count>0){
+            score+=100*(1+conmbo*0.1)*count;
         }
     }
 }
