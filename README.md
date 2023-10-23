@@ -12,7 +12,10 @@ android環境で使用できるテトリスアプリです。
 
 ### タイトル画面　　　　　　ゲーム画面
 
-![Screenshot_20230714-152154](https://github.com/aoki0911/androidStudioTetris/assets/137476182/2b72f7ff-fb85-4e74-af01-d7d3700a65f7)![Screenshot_20230714-152201](https://github.com/aoki0911/androidStudioTetris/assets/137476182/78d4d670-e9bc-452c-a60a-a4f1c274721e)
+![Screenshot_20230714-152154](https://github.com/aoki0911/androidStudioTetris/assets/137476182/2b72f7ff-fb85-4e74-af01-d7d3700a65f7)![Screenshot_20230724-134709](https://github.com/aoki0911/androidStudioTetris/assets/137476182/ed24e8a6-6cf5-414b-9803-1aca4890eb3c)
+
+
+
 
 ## 開発のきっかけ
 大学の授業で作ったアプリをもとにしてGitHhubの習得とアプリのクオリティ向上のために開発しました。
